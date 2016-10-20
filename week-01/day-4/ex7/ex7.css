@@ -1,0 +1,21 @@
+p {
+  margin-left: 0px;
+  max-width: 400px;
+  font-size: 18px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  padding-left: 20px;
+  margin: -2px;
+  padding: 20px;
+}
+.first {
+  border-style: none;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+.last {
+  border-style: none;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}

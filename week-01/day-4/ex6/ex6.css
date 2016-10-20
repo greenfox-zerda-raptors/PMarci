@@ -1,0 +1,9 @@
+p {
+  margin-left: 0px;
+  max-width: 400px;
+  font-size: 18px;
+  border-left-style: solid;
+  border-color: black;
+  border-width: 2px;
+  padding-left: 20px;
+}

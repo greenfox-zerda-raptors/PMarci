@@ -1,0 +1,17 @@
+h1, h2, h3 {
+  border-style: solid;
+  border-color: black;
+  border-width: 5px
+  margin-left: 10px;
+  margin: 5px;
+  max-width: 150px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  font-family:
+  medium-content-sans-serif-font,"Times New Roman";
+  font-weight: lighter;
+  font-size: 30px;
+  color: red;
+  background-color: yellow;
+}

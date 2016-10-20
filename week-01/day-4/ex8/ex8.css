@@ -1,0 +1,19 @@
+p {
+  background:url('duck.png') no-repeat left center;
+  margin-left: 0px;
+  max-width: 200px;
+  font-size: 18px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  padding-left: 20px;
+  margin: -2px;
+  padding: 40px;
+
+}
+.p2 {
+  background:url('duck.png') no-repeat center center;
+}
+.p3 {
+  background:url('duck.png') no-repeat right bottom;
+}
