@@ -12,8 +12,8 @@ p {
 
 }
 .p2 {
-  background:url('duck.png') no-repeat center center;
+  background-position: center center;
 }
 .p3 {
-  background:url('duck.png') no-repeat right bottom;
+  background-position: right bottom;
 }

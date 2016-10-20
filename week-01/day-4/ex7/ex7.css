@@ -9,6 +9,9 @@ p {
   margin: -2px;
   padding: 20px;
 }
+p:hover {
+  background-color: red;
+}
 .first {
   border-style: none;
   border-left: 2px solid black;
