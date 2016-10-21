@@ -29,6 +29,7 @@ h4, sub {
 }
 sub {
   font-style: italic;
+  font-weight: normal;
   margin-top: 0;
 }
 .par {
@@ -40,32 +41,28 @@ sub {
   height: 500px;
   background: url("pic.jpg") no-repeat center top;
   background-size: 100%;
+  margin: auto;
 }
 /*.piccontainer2 {
-  width: 1000px;
-  height: 456;
+  position: inherit;
+  width: inherit;
+  height: inherit;
   background-size: 100%;
-  background: rgba(0, 0, 0, 0.7)
-} solution for Viktor*/
+  background: rgba(255, 255, 255, 0.7)
+} /*solution for Viktor*/
 body {
   margin: 0 10 0 10;
 }
-/*.title {
+header {
   font-family: "BebasNeue";
   font-size: 40px;
-  position: absolute;
+  position: relative;
   top: 300;
-  left: 140;
-}*/
-#title span {
-  font-family: "BebasNeue";
-  font-size: 40px;
-  position: absolute;
-  top: 300;
-  left: 10;
+  left: 0;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.4);
   padding: 10px 10px 10px 80px;
+  width: 300;
 }
 ul {
   margin: 20px;
@@ -82,6 +79,17 @@ ul {
   background-color: grey;
   width: 50%;
   min-width: 680;
+}
+hr {
+    margin-left: 100;
+    margin-right: 100;
+    border-width: 5px;
+}
+span.spacer {
+   padding: 0 10px;
+}
+span.spacer1 {
+   padding: 0 0px;
 }
 html {
   /*background-color: black;*/
