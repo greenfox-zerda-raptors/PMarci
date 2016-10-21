@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "BebasNeue";
+  src: url("BebasNeue.otf");
+}
+h1, h2, h3 , h4, sub {
+  font-family: "Calibri";
+  font-size: 36px;
+  text-align: left;
+  margin: auto;
+  margin-top: 20;
+  margin-bottom: 0;
+  width: 50%;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-family: "Arial Narrow";
+  font-size: 24px;
+  font-weight: lighter;
+  margin-top: 40;
+  width: 70%
+}
+h4, sub {
+  margin-top: 5;
+  font-size: 18px;
+  font-weight: lighter;
+  display: block;
+}
+sub {
+  font-style: italic;
+  margin-top: 0;
+}
+.par {
+  position: relative;
+  position: 50%
+}
+.piccontainer {
+  width: 1300px;
+  height: 500px;
+  background: url("pic.jpg") no-repeat center top;
+  background-size: 100%;
+}
+/*.piccontainer2 {
+  width: 1000px;
+  height: 456;
+  background-size: 100%;
+  background: rgba(0, 0, 0, 0.7)
+} solution for Viktor*/
+body {
+  margin: 0 10 0 10;
+}
+/*.title {
+  font-family: "BebasNeue";
+  font-size: 40px;
+  position: absolute;
+  top: 300;
+  left: 140;
+}*/
+#title span {
+  font-family: "BebasNeue";
+  font-size: 40px;
+  position: absolute;
+  top: 300;
+  left: 10;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px 10px 10px 80px;
+}
+ul {
+  margin: 20px;
+}
+.quote {
+  background: url("quote.png") no-repeat;
+  font-family: "BebasNeue";
+  font-size: 80px;
+  text-align: center;
+  color: white;
+  margin: auto;
+  margin-top: 20;
+  padding: 60;
+  background-color: grey;
+  width: 50%;
+  min-width: 680;
+}
+html {
+  /*background-color: black;*/
+  /*margin: 0;*/
+}
