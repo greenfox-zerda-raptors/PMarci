@@ -1,0 +1,15 @@
+p {
+  margin-left: 0px;
+  max-width: 200px;
+  font-size: 18px;
+  border-bottom: 2px solid black;
+  padding-left: 20px;
+  margin: -2px;
+  padding: 20px;
+}
+.p1 img{
+  float: left;
+}
+.p2 img {
+  float: right;
+}

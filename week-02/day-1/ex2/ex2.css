@@ -1,0 +1,40 @@
+html {
+  margin: 0 auto;
+}
+main {
+  clear: both;
+}
+.head, footer {
+  width: 900px;
+  height: 150px;
+  background-color: cyan;
+}
+footer {
+  clear: both;
+  background-color: blue;
+}
+.left, .main, .right {
+  float: left;
+  margin: 0, auto;
+  height: 800px;
+  width: 500px;
+  margin: 0 50 0 50;
+  background-color: red;
+}
+.left, .right {
+  margin: 0;
+  float: left;
+  width: 150px;
+  background-color: orange;
+}
+.right {
+  background-color: purple;
+}
+.black {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  position: relative;
+  top: 650;
+  left: 350;
+}

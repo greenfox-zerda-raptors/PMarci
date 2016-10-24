@@ -43,13 +43,18 @@ sub {
   background-size: 100%;
   margin: auto;
 }
-/*.piccontainer2 {
-  position: inherit;
+.piccontainer2 {
+  position: absolute;
   width: inherit;
   height: inherit;
   background-size: 100%;
-  background: rgba(255, 255, 255, 0.7)
-} /*solution for Viktor*/
+  background-color: rgba(0,0,255,0.5);
+  -webkit-animation: color_change 1s infinite alternate;
+	-moz-animation: color_change 1s infinite alternate;
+	-ms-animation: color_change 1s infinite alternate;
+	-o-animation: color_change 1s infinite alternate;
+  animation: color_change 1s infinite alternate;
+}
 body {
   margin: 0 10 0 10;
 }
@@ -94,4 +99,26 @@ span.spacer1 {
 html {
   /*background-color: black;*/
   /*margin: 0;*/
+}
+/*@-webkit-keyframes color_change {
+		  from { background-color: blue; }
+		  to { background-color: red; }
+		}
+		@-moz-keyframes color_change {
+		  from { background-color: blue; }
+		  to { background-color: red; }
+		}
+		@-ms-keyframes color_change {
+		  from { background-color: blue; }
+		  to { background-color: red; }
+		}
+		@-o-keyframes color_change {
+		  from { background-color: blue; }
+		  to { background-color: red; }
+		}*/
+		@keyframes color_change {
+		  0% { background-color: rgba(0,0,255,0.5); }
+		  33% { background-color: rgba(0,255,0,0.5); }
+      66% { background-color: rgba(255,0,0,0.5); }
+      100%  { background-color: rgba(0,0,255,0.5); }
 }

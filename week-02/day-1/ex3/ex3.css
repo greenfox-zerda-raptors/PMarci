@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  width: 100%;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.flex-container-main {
+  flex-wrap: nowrap;
+  display: flex;
+  width: 100%;
+}
+.head, footer {
+  height: 150px;
+  background-color: cyan;
+  width: 100%;
+}
+footer {
+  background-color: blue;
+}
+.left, main, .right {
+  display: inline-flex;
+  justify-content: center;
+  height: 800px;
+  margin: 0 20;
+  background-color: red;
+}
+main {
+  flex-grow: 1;
+}
+.left, .right {
+  width: 150px;
+  background-color: orange;
+  z-index: 1;
+  margin: 0;
+}
+.right {
+  background-color: purple;
+}
+.black {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  position: absolute;
+  top: 800;
+  right: 200;
+  z-index: 0;
+}

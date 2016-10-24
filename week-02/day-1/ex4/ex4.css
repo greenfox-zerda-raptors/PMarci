@@ -1,0 +1,61 @@
+p {
+  margin-left: 0px;
+  max-width: 300px;
+  font-size: 18px;
+  border-bottom: 2px solid black;
+  padding-left: 20px;
+  margin: -2px;
+  padding: 20px;
+}
+.p1 img{
+  float: left;
+}
+.p2 img {
+  float: right;
+}
+#dialog-confirm {
+  float: left;
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 150px;
+  width: 250px;
+  z-index: 1;
+  position: fixed;
+  top: 150px;
+  left: 100px;
+  background-color: white;
+}
+#dialog-confirm p:first-child {
+  padding: 10 20;
+  color: red;
+}
+#dialog-confirm p {
+  padding: 20px;
+  padding-left: 15px;
+}
+#ok, #cancel {
+  float: left;
+  height: auto;
+  width: auto;
+  border: hidden;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 10 0 0 140;
+  background-color: darkgrey;
+}
+#cancel {
+margin: 10 10 0 10;
+}
+#close {
+  height: 10;
+  width: 10;
+  border: 5px solid black;
+  border-radius: 10px;
+  position: absolute;
+  top: -10;
+  right: 20;
+  text-align: center;
+  color: white;
+  line-height: 5px;
+  background-color: black;
+}

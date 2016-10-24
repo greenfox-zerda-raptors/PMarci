@@ -1,0 +1,29 @@
+.flex-container {
+  display: flex;
+  width: 900px;
+  height: 600px;
+  background-color: gray;
+  flex-flow: row wrap;
+}
+.box {
+  border: 5px solid black;
+  width: 280px;
+  height: 180px;
+  margin: 5;
+  background-color: tomato;
+}
+.box:nth-child(5) {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: -10px;
+  margin-bottom: -10px;
+  line-height: 180px;
+  text-align: center;
+  font-size: 36px;
+}
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
