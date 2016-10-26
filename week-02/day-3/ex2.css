@@ -1,0 +1,43 @@
+td.price::before {
+    content: "$ ";
+}
+td, th {
+  padding: 20px;
+  border: 1px solid #c0c2cf;
+  color: #696e85;
+}
+tr {
+  background-color: #ffffff;
+}
+tbody>tr:nth-child(odd) {
+  background-color: rgb(235,235,235);
+}
+tr>th {
+  background-color: rgb(27,30,36);
+  border-bottom-width: 4px;
+  color: #b4bac2;
+  font-size: 1.4em;
+  font-weight: lighter;
+}
+div {
+  background-color: #4396e8;
+  height: 469px;
+  width: 680px;
+  position: absolute;
+}
+#main {
+  width: 600px;
+  height: auto;
+  border: 1px hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 40px;
+}
+table {
+  box-sizing: border-box;
+  width: inherit;
+  text-align: left;
+  border-collapse: collapse;
+  border: 1px hidden;
+  font-family: 'Open Sans', sans-serif;
+}
