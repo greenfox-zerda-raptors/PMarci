@@ -1,0 +1,53 @@
+#main {
+  position: absolute;
+  height: 500px;
+  width: 500px;
+  background-color: #333333;
+}
+#container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  top: 175px;
+  left: 175px;
+  text-align: center;
+  color: #333333;
+}
+.box {
+  box-sizing: border-box;
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+  text-align: center;
+  background-color: white;
+  margin: auto;
+  border: hidden;
+  border-radius: 5px;
+  overflow: hidden;
+  transform: rotate(45deg);
+  transition: color 0.5s;
+}
+.red {
+  transform-origin: center;
+  transform: rotate(0);
+  margin: 0;
+  background-color: transparent;
+  border: 5px solid tomato;
+  transition: all 0.5s;
+}
+span {
+  line-height: 150px;
+  position: relative;
+  margin: 0 auto;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  transition: color 0.5s;
+}
+#container:hover .red {
+transform: rotate(45deg);
+}
+#container:hover {
+  color: tomato;
+}

@@ -9,10 +9,10 @@ td, th {
 tr {
   background-color: #ffffff;
 }
-tbody>tr:nth-child(odd) {
+tr:nth-child(odd) {
   background-color: rgb(235,235,235);
 }
-tr>th {
+th {
   background-color: rgb(27,30,36);
   border-bottom-width: 4px;
   color: #b4bac2;
@@ -34,7 +34,6 @@ div {
   margin: 40px;
 }
 table {
-  box-sizing: border-box;
   width: inherit;
   text-align: left;
   border-collapse: collapse;

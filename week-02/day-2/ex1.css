@@ -108,8 +108,8 @@ input[type="file"] {
 }
 .custom-file-upload {
   position: relative;
-  top: 40px;
-  margin: 40px;
+  /*top: 40px;
+  margin: 40px;*/
   background-color: white;
   padding: 10;
 }
