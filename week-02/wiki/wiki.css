@@ -9,7 +9,23 @@ body {
 #flex-container {
   display: flex;
 }
+a:visited {
+  color: #0b0080;
+}
+a {
+  text-decoration: none;
+  color: #0645ad;
+  background: none;
+}
+a:not( [href] ) {
+  cursor: pointer;
+}
+a:hover, a:focus {
+  text-decoration: underline;
+}
 #head-base {
+  position: relative;
+  z-index: 100;
   width: 100%;
   height: 80px;
   background-color: transparent;
@@ -30,27 +46,68 @@ body {
   margin-top: -1px;
   background-color: #ffffff;
   color: #252525;
+  position: relative;
 }
-/*#mbody {
-    float: right;
-    margin-left: 10em;
-    padding: 1em;
-    border: 1px solid #a7d7f9;
-    border-right-width: 0;
-    margin-top: -1px;
-    background-color: #ffffff;
-    color: #252525;*/
+#mbody .firstHeading {
+  overflow: visible;
+}
+#mbody-content {
+  line-height: 1.6;
+  font-size: 0.875em;
+}
+#mbody h1 {
+  font-size: 1.8em;
+}
+#mbody h1, #mbody h2 {
+  font-family: "Linux Libertine",Georgia,Times,serif;
+  line-height: 1.3;
+  margin-bottom: 0.25em;
+  padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+    background: none;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+    padding-top: .5em;
+    padding-bottom: .17em;
+    border-bottom: 1px solid #aaa;
+}
+#mbody h2 {
+    font-size: 1.5em;
+    margin-top: 1em;
+}
+#mbody p {
+    margin: 0.5em 0;
+}
+.mw-editsection {
+    font-size: small;
+    font-weight: normal;
+    margin-left: 1em;
+    vertical-align: baseline;
+    line-height: 1em;
+    display: inline-block;
+}
+#siteSub {
+    display: block;
+    font-size: 92%;
+    margin-bottom: 1.3em;
+}
 #p-logo, .mw-wiki-logo {
   height: 160;
   width: 160;
 }
 footer {
   width: 100%;
-  height: 214px;
+  height: 306px;
   background-color: cyan;
+  display: block;
+  clear: both;
+  background-image: url(http://adamhgrimes.com/TAAS/wp-content/uploads/2014/08/under-construction-banner.jpg);
 }
 .biography {
-  width: 19em;
+  width: 22em;
   border: 1px solid #aaa;
   border-spacing: 3px;
   background-color: #f9f9f9;
@@ -62,9 +119,255 @@ footer {
   font-size: 88%;
   line-height: 1.5em;
 }
+.biography td, .biography th {
+  text-align: left;
+  vertical-align: top;
+}
 .mw-wiki-logo {
   position: absolute;
   background-image: url(enwiki.png);
   background-repeat: no-repeat;
     background-position: center center;
+}
+.hatnote {
+  display: block;
+  padding-left: 1.6em;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+#toc {
+  display: table;
+  zoom: 1;
+  padding: 7px;
+  border: 1px solid #aaa;
+  background-color: #f9f9f9;
+  font-size: 95%;
+}
+#mbody #toc h2, #mbody .toc h2 {
+  font-family: sans-serif;
+  display: inline;
+  border: none;
+  padding: 0;
+  font-size: 100%;
+  font-weight: bold;
+}
+#toc #toctitle, #toc .toctitle {
+  text-align: center;
+}
+li {
+  margin-bottom: .1em;
+}
+#toc ul, .toc ul {
+  list-style-type: none;
+  list-style-image: none;
+  margin-left: 0;
+  padding: 0;
+  text-align: left;
+  margin: .3em 0;
+}
+#toc ul ul, .toc ul ul {
+  margin: 0 0 0 2em;
+}
+.tocnumber, .toctext {
+  display: table-cell;
+  text-decoration: inherit;
+  padding-left: 0;
+  padding-right: 0.5em;
+}
+#p-personal {
+  position: absolute;
+  top: 0.33em;
+  right: 0.75em;
+}
+#p-personal ul {
+  list-style-type: none;
+  list-style-image: none;
+  margin: 0;
+  padding-left: 10em;
+}
+#p-personal ul:first-child {
+color: #707070;
+}
+#pt-userpage, #pt-anonuserpage {
+  background-image: url(anon.png);
+  padding-left: 15px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+#p-personal li {
+  line-height: 1.125em;
+  float: left;
+  margin-left: 0.75em;
+  margin-top: 0.5em;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+#left-navigation {
+  float: left;
+  margin-left: 10em;
+  margin-top: -120px;
+  margin-bottom: -2.5em;
+  display: inline;
+}
+.vectorTabs {
+    float: left;
+    height: 2.5em;
+    background-image: url(tab-break.png);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    padding-left: 1px;
+}
+div.vectorTabs ul {
+    float: left;
+    height: 50%;
+    list-style-type: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+    background-image: url(tab-break.png);
+    background-position: right bottom;
+    background-repeat: no-repeat;
+}
+div.vectorTabs ul > li {
+    display: block;
+}
+div.vectorTabs ul li {
+    float: left;
+    line-height: 1.125em;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f3f3;
+    background-image: url(fade.png);
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    white-space: nowrap;
+}
+div.vectorTabs li.selected {
+  background-image: url(white-tab.png);
+}
+div.vectorTabs li.selected a {
+  color: #333;
+}
+div.vectorTabs li a {
+  display: inline-block;
+  height: 1.9em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  color: #0645ad;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+div.vectorTabs span a {
+    padding-top: 1.25em;
+    display: inline-block;
+    background-image: url(tab-break.png);
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}
+#right-navigation {
+    float: right;
+    margin-top: -120px;
+}
+div #simpleSearch {
+    display: block;
+    width: 12.6em;
+    width: 20vw;
+    min-width: 5em;
+    max-width: 20em;
+    padding-right: 1.4em;
+    height: 1.4em;
+    margin-top: 0.65em;
+    position: relative;
+    min-height: 1px;
+    border: solid 1px #aaa;
+    color: black;
+    background-color: white;
+    background-image: url(bg16.png);
+    background-position: top left;
+    background-repeat: repeat-x;
+}
+#p-search {
+    float: left;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+div#simpleSearch #searchInput {
+    width: 100%;
+    padding: 0.2em 0 0.2em 0.2em;
+    font-size: 13px;
+}
+div#simpleSearch #searchButton {
+    background-image: url(search.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.65em;
+    height: 100%;
+    cursor: pointer;
+    text-indent: -99999px;
+    line-height: 1;
+    direction: ltr;
+    white-space: nowrap;
+    overflow: hidden;
+}
+div#simpleSearch input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    color: black;
+}
+div#mw-panel {
+    font-size: inherit;
+    position: absolute;
+    top: 160px;
+    padding-top: 1em;
+    width: 10em;
+    left: 0;
+}
+div#mw-panel div.portal {
+    margin: 0 0.6em 0 0.7em;
+    padding: 0.25em 0;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-image: url(portal-break.png);
+  }
+#mw-panel #p-navigation {
+    background-image: none;
+    margin-top: 0;
+}
+div#mw-panel div.portal div.body ul li {
+    line-height: 1.125em;
+    margin: 0;
+    padding: 0.25em 0;
+    font-size: 0.75em;
+    word-wrap: break-word;
+}
+div#mw-panel div.portal h3 {
+    font-size: 0.75em;
+    color: #4d4d4d;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 0 0.25em 0.25em;
+    cursor: default;
+    border: none;
+}
+div#mw-panel div.portal div.body ul {
+    list-style-type: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+}
+div.body {
+    margin-left: 0.5em;
+}
+div#mw-panel div.portal div.body {
+    margin: 0 0 0 1.25em;
+    padding-top: 0;
+}
+#mw-panel #p-navigation .body {
+  margin-left: 0.5em;
 }

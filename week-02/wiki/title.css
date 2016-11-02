@@ -1,0 +1,19 @@
+body {
+  font-family: 'DK innuendo';
+  width: 100%;
+  font-size: 120px;
+  margin: 200px auto;
+  text-align: center;
+  color: grey;
+  -webkit-animation: color_change 3s infinite alternate;
+	-moz-animation: color_change 3s infinite alternate;
+	-ms-animation: color_change 3s infinite alternate;
+	-o-animation: color_change 3s infinite alternate;
+  animation: color_change 3s infinite alternate;
+}
+@keyframes color_change {
+  0% { color: rgba(0,0,255,1); }
+  33% { color: rgba(0,255,0,1); }
+  66% { color: rgba(255,0,0,1); }
+  100%  { color: rgba(0,0,255,1); }
+}
