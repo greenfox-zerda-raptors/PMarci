@@ -3,6 +3,7 @@
  */
 public class Challenge02 {
     public static void main(String[] args) {
+        long t = System.currentTimeMillis();
         int l = 2;
         int m;
         do {
@@ -11,7 +12,6 @@ public class Challenge02 {
             do {
 //                System.out.println(String.format("az m most %d", m));
                 if (l % m == 0 && l != m) {
-                    m++;
 //                    System.out.println("egy");
                     break;
                 }
@@ -25,6 +25,8 @@ public class Challenge02 {
                     m++;
             } while (m <= l);
             l++;
-        } while (l <= 100);
+        } while (l <= 550);
+        long s = System.currentTimeMillis();
+        System.out.println(String.format("search finished in %d ms", s-t));
     }
 }
