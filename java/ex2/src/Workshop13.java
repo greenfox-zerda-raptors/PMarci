@@ -8,6 +8,6 @@ public class Workshop13 {
         for (int b : ah) {
             s += b;
         }
-
+        System.out.println(s);
     }
 }
