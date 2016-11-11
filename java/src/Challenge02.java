@@ -3,7 +3,7 @@
  */
 public class Challenge02 {
     public static void main(String[] args) {
-        long t = System.currentTimeMillis();
+        long t = System.nanoTime();
         int l = 2;
         int m;
         do {
@@ -15,7 +15,8 @@ public class Challenge02 {
 //                    System.out.println("egy");
                     break;
                 }
-                else if (m == l) {
+              else if (m > Math.sqrt(l)) {
+//                else if (m == l) {
                     System.out.println(l);
 //                    System.out.println("ketto");
                     break;
@@ -23,10 +24,11 @@ public class Challenge02 {
                 else
 //                    System.out.println("harom");
                     m++;
-            } while (m <= l);
+            } while (m <= Math.sqrt(l)+2);
+//            } while (m <= l);
             l++;
-        } while (l <= 550);
-        long s = System.currentTimeMillis();
-        System.out.println(String.format("search finished in %d ms", s-t));
+        } while (l <= 100);
+        long s = System.nanoTime();
+        System.out.println(String.format("search finished in %d micros", (s-t)/1000));
     }
 }
