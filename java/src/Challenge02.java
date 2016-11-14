@@ -27,7 +27,7 @@ public class Challenge02 {
             } while (m <= Math.sqrt(l)+2);
 //            } while (m <= l);
             l++;
-        } while (l <= 100);
+        } while (l <= 1000000);
         long s = System.nanoTime();
         System.out.println(String.format("search finished in %d micros", (s-t)/1000));
     }
