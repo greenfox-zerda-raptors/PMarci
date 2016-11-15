@@ -1,4 +1,5 @@
 public class Car {
+
     public String getTypeCar() {
         return typeCar;
     }
@@ -30,20 +31,10 @@ public class Car {
     public void setKmOdometer(int kmOdometer) {
         this.kmOdometer = kmOdometer;
     }
-
-    public static int getCarCount() {
-        return carCount;
-    }
-
-    public static void setCarCount(int carCount) {
-        Car.carCount = carCount;
-    }
-
     private String typeCar;
     private String color;
     private int ccs;
     private int kmOdometer;
-    static private int carCount = -1;
 
     public Car() {
         this("Mazda", "red", 1600, 12312);
