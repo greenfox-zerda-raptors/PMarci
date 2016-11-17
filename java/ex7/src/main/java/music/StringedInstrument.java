@@ -1,7 +1,7 @@
 package main.java.music;
 
 public abstract class StringedInstrument extends Instrument {
-
+    protected int numberOfStrings;
 
     final String formatForPlay = "%s, a %d-stringed instrument that %s\n";
     public void play () {
@@ -12,9 +12,8 @@ public abstract class StringedInstrument extends Instrument {
         this.sound = sound;
     }
     public StringedInstrument(int nstrings, String name, String sound) {
+            this(name, sound);
             this.numberOfStrings = nstrings;
-            this.name = name;
-            this.sound = sound;
     }
 
 }
