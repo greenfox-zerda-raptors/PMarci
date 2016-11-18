@@ -3,9 +3,14 @@ import java.util.Arrays;
 
 public class Task {
         public String taskDesc;
-        public boolean completed;
+        public boolean completed = false;
     public Task(String taskSub) {
         this.taskDesc = taskSub;
+    }
+
+    public Task(String taskDesc, int boolint) {
+        this.taskDesc = taskDesc;
+        this.completed = (boolint == 1)? true : false;
     }
 
     public String getTaskDesc() {
