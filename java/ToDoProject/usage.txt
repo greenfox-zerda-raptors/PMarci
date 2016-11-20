@@ -1,11 +1,11 @@
 CLI Todo application
-====================
+==========================================
 
 Available commands:
- list or l	Lists all the tasks
- add or a	Adds a new task
- remove or r	Removes n task
- complete or c	Completes a task
- help or h	Print out this list again
- user or u	Change session username
- switch or s	Change current list
+ list or l      Lists all the tasks
+ add or a       Adds a new task
+ remove or r    Removes n task
+ complete or c  Completes a task
+ help or h      Print out this list again
+ user or u      Change session username
+ switch or s    Change current list

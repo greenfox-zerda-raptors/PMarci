@@ -170,15 +170,11 @@ public abstract class Meth {
         }
         System.out.println("");
         do {
-            if (!(file==null)){
+        if (file!=null && (!file.isFile() || !file.canRead() || !file.canWrite())){
                 System.out.println("File not found or damaged, try again!\n(Type the filename without the directory or extension!)");
             }
             customListName = customListNameEntry(customListName);
             file = new File(dir + "\\" + customListName + ".csv");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println(e + "Couldn't create File");}
         } while (!(file.isFile() && file.canRead() && file.canWrite()));
         currentList = createTasklist(customListName, sessionUserName);
     }
@@ -192,16 +188,20 @@ public abstract class Meth {
         if (fileSplit.length > 1 && (filename.equals("n") || filename.equals("new")) && !fileSplit[1].isEmpty()) {
             customListName = fileSplit[1];
             file = new File(dir + "\\" + customListName + ".csv");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println(e + "Couldn't create File");}
             break;
-        } else if (fileSplit[0].equals("n") || fileSplit[0].equals("new")){
+        } else if (filename.equals("n") || filename.equals("new")){
             System.out.println("You didn't enter a filename!");
         }
-        else {
+        else if (!fileSplit[0].isEmpty()){
             customListName = fileSplit[0];
             break;
         }
     }
-    return customListName;
+return customListName;
     }
     public static String setUserName(String sessionUserName) {
         Scanner scanner3 = new Scanner(System.in);

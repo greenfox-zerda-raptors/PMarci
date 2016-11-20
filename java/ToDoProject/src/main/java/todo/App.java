@@ -15,9 +15,6 @@ public class App extends Meth {
     public static void main(String[] args) {
         System.out.println("************************************************\n************************************************\n*************WELCOME TO MY TODO APP*************\n************************************************\n************************************************");
         load(1000);
-//        URL location = App.class.getProtectionDomain().getCodeSource().getLocation();
-//        System.out.println(location.getFile());
-//        printByLine(new File(loc2 + "\\" + "usage.txt"));
         String dirPath = System.getProperty("user.dir");
         File dir = new File(dirPath);
         sessionUserName = setUserName(sessionUserName);
@@ -48,6 +45,7 @@ public class App extends Meth {
                 break;
             case "switch":
             case "s": listFiles(dir);
+                readByLine(file, currentList);
                 break;
             case "user":
             case "u": sessionUserName = setUserName(sessionUserName);
