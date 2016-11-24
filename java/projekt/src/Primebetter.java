@@ -7,7 +7,7 @@ public class Primebetter {
 
     public static ArrayList<Integer> factor(Integer num) {
         ArrayList<Integer> prlist = new ArrayList<Integer>();
-        for (int i = 2; i <= num / 2; i++) {
+        for (int i = 2; i <= num; i++) {
             while (num % i == 0) {
                 num /= i;
                 prlist.add(i);
@@ -27,19 +27,22 @@ public class Primebetter {
                     break;
                 }
                 ArrayList<Integer> o = factor(input);
-                if (o.isEmpty()) {
+                if ( o.size() == 1) {
                     System.out.printf("\"%d\" is a prime number \n", input);
                 } else {
                     System.out.printf("\"%d\" has the following factors: ", input);
                     for (int i = 0; i < o.size(); i++) {
-                        System.out.print(o.get(i) + " x ");
+                        System.out.print(o.get(i));
+                        if (!(i + 1 == o.size())) {
+                            System.out.print(" x ");
+                        }
                     }
-                    System.out.println("\nOr by count:-");
-                    HashSet<Integer> uniqueo = new HashSet<Integer>(o);
+                    System.out.println("\nOr by count:");
+                    HashSet<Integer> uniqueo = new HashSet<Integer>(o); //magic
                     for (int i = 0; i < uniqueo.size(); i++) {
                         System.out.print(uniqueo.toArray()[i] + " ");
                         String monthString;
-                        switch (Collections.frequency(o, o.get(i))) {
+                        switch (Collections.frequency(o, uniqueo.toArray()[i])) {
                             case 1:
                                 monthString = "once";
                                 break;

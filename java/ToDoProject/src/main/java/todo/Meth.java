@@ -181,33 +181,37 @@ public abstract class Meth {
     public static String customListNameEntry(String customListName) {
         Scanner scanner1 = new Scanner(System.in);
         while (true) {
-        System.out.print("Type the filename to open it,\nor create a new list with \"new [custom title]\": ");
-        String fileInput = scanner1.nextLine();
-        String[] fileSplit = fileInput.split("\\s", 2);
-        String filename = fileSplit[0];
-        if (fileSplit.length > 1 && (filename.equals("n") || filename.equals("new")) && !fileSplit[1].isEmpty()) {
-            customListName = fileSplit[1];
-            file = new File(dir + "\\" + customListName + ".csv");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println(e + "Couldn't create File");}
-            break;
-        } else if (filename.equals("n") || filename.equals("new")){
-            System.out.println("You didn't enter a filename!");
+            System.out.print("Type the filename to open it,\nor create a new list with \"new [custom title]\": ");
+            String fileInput = scanner1.nextLine();
+            String[] fileSplit = fileInput.split("\\s", 2);
+            String filename = fileSplit[0];
+            if (fileSplit.length > 1 && (filename.equals("n") || filename.equals("new")) && !fileSplit[1].isEmpty()) {
+                customListName = fileSplit[1];
+                file = new File(dir + "\\" + customListName + ".csv");
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    System.out.println(e + "Couldn't create File");}
+                break;
+            } else if (filename.equals("n") || filename.equals("new")){
+                System.out.println("You didn't enter a filename!");
+            }
+            else if (!fileSplit[0].isEmpty()){
+                customListName = fileSplit[0];
+                break;
+            }
         }
-        else if (!fileSplit[0].isEmpty()){
-            customListName = fileSplit[0];
-            break;
-        }
-    }
-return customListName;
+        return customListName;
     }
     public static String setUserName(String sessionUserName) {
         Scanner scanner3 = new Scanner(System.in);
         System.out.print("Type the username for this session: ");
         sessionUserName = scanner3.nextLine();
     return sessionUserName;
+    }
+    public static void remList(TaskList<Task> currentList) {
+        file.delete();
+        System.out.printf("List %s was removed! (or was it? %b)\n", currentList.title, file.delete());
     }
 }
 

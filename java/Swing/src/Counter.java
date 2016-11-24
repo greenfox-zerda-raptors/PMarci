@@ -30,10 +30,9 @@ public class Counter extends JFrame {
         cl = new JLabel("Clicked " + clicks + " times");
         jb = new JButton();
         rb = new JButton();
-        bl = new JLabel("Press me! oolololololololllol");
+        bl = new JLabel("Press me!");
         rl = new JLabel("Reset");
         bl.setPreferredSize(buttonDimension);
-        bl.setText("Press me!");
         rl.setPreferredSize(buttonDimension);
         jb.addActionListener(
                 new CounterActionListener()

@@ -9,7 +9,7 @@ public class ImageApp extends JFrame {
 
     public ImageApp() throws HeadlessException {
         setDefaultCloseOperation(3);
-//        Image kep = Toolkit.getDefaultToolkit().createImage("C:/Users/posam/Desktop/Untitled.png");
+        setResizable(false);
         Image kep = new ImageIcon("C:/Users/posam/Desktop/Untitled.png").getImage();
         JPanel panel = new JPanel() {
             @Override

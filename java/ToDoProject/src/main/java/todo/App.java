@@ -43,6 +43,10 @@ public class App extends Meth {
             case "remove":
             case "r": remTask(currentList, taskSub);
                 break;
+                case "remlist":
+            case "rl": listFiles(dir);
+                remList(currentList);
+                break;
             case "switch":
             case "s": listFiles(dir);
                 readByLine(file, currentList);
