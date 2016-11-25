@@ -36,7 +36,7 @@ public class Counter extends JFrame {
 
         cb = new JButton();
         rb = new JButton();
-        tf = new JTextField(14);
+        tf = new JTextField(10);
         bl = new JLabel("Press me!");
         rl = new JLabel("Reset");
         cl = new JLabel("Actions performed: " + clicks);
@@ -99,6 +99,7 @@ public class Counter extends JFrame {
         cp.add(mp, gbc);
         gbc.gridy++;
         cp.add(wp, gbc);
+        cp.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.add(cp);
         pack();
         this.setVisible(true);

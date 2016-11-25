@@ -16,10 +16,11 @@ public class WrapperApp extends JFrame implements ActionListener {
 
 
     public WrapperApp() throws HeadlessException {
-        this.setSize(new Dimension(500, 500));
+        this.setSize(new Dimension(500, 520));
         this.setDefaultCloseOperation(3);
-        setLayout(new FlowLayout());
+//        setLayout(new FlowLayout());
         this.setLocationRelativeTo(null);
+        this.setTitle("Swing wrapper");
         bar = new JMenuBar();
         file = new JMenu("File");
         exit = new JMenuItem("Exit");

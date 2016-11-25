@@ -7,23 +7,25 @@ import java.awt.*;
  */
 public class ImagePanel extends JPanel {
     Image kep;
+    Font legjobb = new Font("Comic Sans MS", Font.PLAIN, 28);
 
     public ImagePanel() {
-//        kep = Toolkit.getDefaultToolkit().createImage("image.jpg");
-        kep = new ImageIcon("image.jpg").getImage();
-        this.setPreferredSize(new Dimension(kep.getWidth(null), kep.getHeight(null)));
+        kep = Toolkit.getDefaultToolkit().createImage("image.jpg");
+//        kep = new ImageIcon("image.jpg").getImage();
+//        this.setPreferredSize(new Dimension(kep.getWidth(null), kep.getHeight(null)));
+//        this.setPreferredSize(new Dimension(500, 500));
     }
 
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         requestFocus();
-        graphics.drawImage(kep, 0, 25, this);
+        graphics.drawImage(kep, 7, 25, this);
         graphics.setColor(Color.BLACK);
-        graphics.setFont(new Font("Arial", Font.BOLD, 20));
-        graphics.drawString("Mi a bre van", 110, 420);
+        graphics.setFont(legjobb);
+        graphics.drawString("Mi a bre van", 180, 420);
 
-        graphics.setColor(new Color(200, 0, 15));
+        graphics.setColor(new Color(200, 196, 0));
         graphics.drawOval(270, 45, 70, 120);
 
         graphics.setColor(Color.BLUE);
