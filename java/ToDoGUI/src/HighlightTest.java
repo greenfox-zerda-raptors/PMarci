@@ -9,6 +9,7 @@ public class HighlightTest
     private JComboBox cbox;
     private JTextField lineField;
     private String[] colourNames = {"RED", "ORANGE", "CYAN"};
+    private Font legjobb = new Font( "Comic Sans MS", Font.PLAIN, 24);
 
     private Highlighter.HighlightPainter painter;
 
@@ -80,7 +81,7 @@ public class HighlightTest
 
         frame.add(contentPane, BorderLayout.CENTER);
         frame.add(button, BorderLayout.PAGE_END);
-
+        changeFont(frame, legjobb);
         frame.pack();
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
@@ -104,7 +105,18 @@ public class HighlightTest
 
         return panel;
     }
-
+    //FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE FONTS HERE
+    public static void changeFont ( Component component, Font font )
+    {
+        component.setFont ( font );
+        if ( component instanceof Container )
+        {
+            for ( Component child : ( ( Container ) component ).getComponents () )
+            {
+                changeFont ( child, font );
+            }
+        }
+    }
     public static void main(String... args)
     {
         SwingUtilities.invokeLater(new Runnable()
@@ -115,4 +127,5 @@ public class HighlightTest
             }
         });
     }
+
 }

@@ -1,11 +1,12 @@
 package todo;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public abstract class Meth {
+public abstract class Meth extends JFrame{
     public static final String dirPath = System.getProperty("user.dir");
     public static final File dir = new File(dirPath);
     public static File file = null;
@@ -205,9 +206,25 @@ public abstract class Meth {
         sessionUserName = scanner3.nextLine();
     return sessionUserName;
     }
-    public static void remList(TaskList<Task> currentList) {
+    public static void remList(TaskList<Task> currentList) { //UNDER CONSTRUCTION
         file.delete();
         System.out.printf("List %s was removed! (or was it? %b)\n", currentList.title, file.delete());
+    }
+    public void listTasks (TaskList<Task> current, JTextArea area) {
+        final String listTaskFormat = "%d - [%c] %s\n";
+        char[] compArr = new char[]{' ', 'x'};
+        char comp;
+        if (current.isEmpty()) {
+            System.out.println("No todos for today! :)");
+        } else {
+                String toArea = "";
+            for (Task t : current) {
+                comp = (t.isCompleted()) ? compArr[1] : compArr[0];
+                toArea += String.format(listTaskFormat + "\n", current.indexOf(t) + 1, comp, t.getTaskDesc());
+            }
+            area.setText(toArea);
+        }
+
     }
 }
 

@@ -9,7 +9,7 @@ public class Task {
 
     public Task(String taskDesc, int boolint) {
         this.taskDesc = taskDesc;
-        this.completed = (boolint == 1)? true : false;
+        this.completed = (boolint == 1);
     }
 
     public String getTaskDesc() {
