@@ -15,7 +15,7 @@ import java.util.Random;
 class Board extends JPanel {
     private ArrayList<GameObject> presentObjects = new ArrayList<>();
     private Hero theHero;
-    private Enemy testEnemy;
+    private Boss boss;
     Area area;
 
 
@@ -25,11 +25,10 @@ class Board extends JPanel {
         setPreferredSize(new Dimension(792, 792));
         this.addKeyListener(new moveKeyListener());
         this.setFocusable(true);
-        testEnemy = new Enemy(new GridPoint(4, 2));
         theHero = new Hero(new GridPoint(0, 0));
-//        presentObjects.add(testEnemy);
+        boss = generateBoss();
+        presentObjects.add(boss);
         presentObjects.addAll(generateEnemies());
-        presentObjects.add(generateBoss());
         presentObjects.add(theHero);
     }
 
@@ -89,7 +88,7 @@ class Board extends JPanel {
 
     ArrayList<GameObject> generateEnemies() {
         Random random = new Random();
-        int number = 2 + random.nextInt(4);
+        int number = 3 + random.nextInt(4);
         ArrayList<GridPoint> validGridPoints = new ArrayList<>();
         ArrayList<GameObject> enemies = new ArrayList<>();
         while (validGridPoints.size() < number) {
@@ -101,8 +100,8 @@ class Board extends JPanel {
         return enemies;
     }
 
-    GameObject generateBoss() {
-        Enemy boss = new Enemy(getAValidGridPoint());
+    Boss generateBoss() {
+        Boss boss = new Boss(getAValidGridPoint());
         return boss;
     }
 

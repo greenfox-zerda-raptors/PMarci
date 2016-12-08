@@ -7,7 +7,7 @@ package com.java.rpg;
 public class Boss extends Character {
     Boss(GridPoint gridPoint) {
         super(gridPoint);
-        getObjectImageString("");
+        changeImage(getObjectImageString(""));
     }
 
     @Override
