@@ -10,8 +10,8 @@ public class BattleLogic {
     private static String lastAction;
     private static Random random = new Random();
 
-    static void strike() {
-
+    static void strike(int charID, Character enemyStoodOn) {
+        System.out.printf("%s with ID %s struck!", enemyStoodOn.getCharName(), charID);
     }
 
     public String getLastAction() {

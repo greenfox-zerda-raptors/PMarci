@@ -14,6 +14,9 @@ import java.util.Random;
  */
 class Board extends JPanel {
     private ArrayList<Character> presentObjects = new ArrayList<>();
+
+
+    private Character enemyStoodOn;
     private Hero theHero;
     private Boss boss;
     Area area;
@@ -31,6 +34,14 @@ class Board extends JPanel {
         presentObjects.addAll(generateEnemies());
         giveKey(presentObjects);
         presentObjects.add(theHero); //fontos utolsonak
+    }
+
+    public Character getEnemyStoodOn() {
+        return enemyStoodOn;
+    }
+
+    public void setEnemyStoodOn(Character enemyStoodOn) {
+        this.enemyStoodOn = enemyStoodOn;
     }
 
     private void giveKey(ArrayList<Character> presentObjects) {
@@ -56,7 +67,7 @@ class Board extends JPanel {
         graphics.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
         graphics.drawString(theHero.toString(), 20, 850);
         if (isGridPointOccupied(theHero.getPosition()) > -1) {
-            Character enemyStoodOn = presentObjects.get(getEnemyID(theHero.getPosition()));
+            setEnemyStoodOn(presentObjects.get(getEnemyID(theHero.getPosition())));
             graphics.drawString(enemyStoodOn.toString(), 20, 900);
             System.out.println(enemyStoodOn.getKeyString());
         }
@@ -80,7 +91,7 @@ class Board extends JPanel {
             } else if (keyCode == KeyEvent.VK_LEFT) {
                 theHero.move(3);
             } else if (keyCode == KeyEvent.VK_SPACE) {
-                BattleLogic.strike();
+                BattleLogic.strike(getEnemyID(theHero.getPosition()), getEnemyStoodOn());
             }
             repaint();
         }
