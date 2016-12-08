@@ -9,11 +9,12 @@ import java.awt.*;
  */
 public class Main extends JFrame {
     private Main() {
-        Board area = new Board();
-        this.add(area);
-        area.setPreferredSize(new Dimension(792, 792));
-        area.setVisible(true);
+        Board board = new Board();
+        this.add(board);
+        board.setPreferredSize(new Dimension(792, 792));
+        board.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         this.setVisible(true);
         pack();
     }

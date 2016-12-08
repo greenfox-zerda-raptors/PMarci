@@ -22,9 +22,6 @@ public class GridPoint {
         return gridX;
     }
 
-    public void setGridX(int gridX) {
-        this.gridX = gridX * 72;
-    }
 
     public int getGridY() {
         return gridY / 72;
@@ -33,6 +30,9 @@ public class GridPoint {
         return gridY;
     }
 
+    public void setGridX(int gridX) {
+        this.gridX = gridX * 72;
+    }
     public void setGridY(int gridY) {
         this.gridY = gridY * 72;
     }

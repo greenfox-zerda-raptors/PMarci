@@ -1,13 +1,27 @@
 package com.java.rpg;
 
-import java.lang.*;
-
 /**
  * Created by posam on 2016-12-07.
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 class Hero extends Character {
-    Hero(String filename, GridPoint gridPoint) {
-        super(filename, gridPoint);
+
+
+    String setObjectImage(String facing) {
+
+        return dir + "\\Images\\" + "hero-" + facing + ".png";
+
+    }
+
+    Hero(GridPoint gridPoint) {
+        super(gridPoint);
+        setObjectImage(Character.directionList.get(2));
+
+    }
+
+    void move(int direction) {
+        super.move(direction);
+        changeImage(setObjectImage(Character.directionList.get(direction)));
+
     }
 }

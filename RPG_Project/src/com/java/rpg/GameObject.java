@@ -11,40 +11,43 @@ import java.io.IOException;
  * Created by posam on 2016-12-05.
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
-abstract class GameObject extends JComponent{
-    private String dirPath = System.getProperty("user.dir");
-    private File dir = new File(dirPath);
+abstract class GameObject extends JComponent {
+    private static String dirPath = System.getProperty("user.dir");
+    static File dir = new File(dirPath);
     String floor = dir + "\\Images\\" + "floor.png";
     String wall = dir + "\\Images\\" + "wall.png";
-    String heroDown = dir + "\\Images\\" + "hero-down.png";
 
-    private BufferedImage image;
-    private int posX,  posY;
+    BufferedImage image;
+    GridPoint position;
 
-    public int getPosX() {
-        return posX;
+    public GameObject() {
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void setPosition(GridPoint gridPoint) {
+        this.position = gridPoint;
     }
 
-    public int getPosY() {
-        return posY;
+    public GridPoint getPosition() {
+        return position;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-
-    GameObject() {
-        setVisible(true);
+    GameObject(GridPoint gridPoint) {
+        setPosition(gridPoint);
+        changeImage(dir + "\\Images\\" + "hero-down.png");
     }
 
     GameObject(String filename, GridPoint gridPoint) {
-        this.posX = gridPoint.getX();
-        this.posY = gridPoint.getY();
+        setPosition(gridPoint);
+        try {
+
+            image = ImageIO.read(new File(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void changeImage(String filename) {
         try {
             image = ImageIO.read(new File(filename));
         } catch (IOException e) {
@@ -52,33 +55,12 @@ abstract class GameObject extends JComponent{
         }
 
     }
-    @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
-
-    }
 
     abstract void draw(Graphics graphics);
+
     void draw(Graphics graphics, GridPoint gridPoint) {
         if (image != null) {
             graphics.drawImage(image, gridPoint.getX(), gridPoint.getY(), null);
         }
-    }
-    void moveAndDraw(int direction) {
-        switch (direction) {
-            case 0:
-                this.setPosY(this.getPosY()-1);
-                break;
-            case 1:
-                this.setPosX(this.getPosX()+1);
-                break;
-            case 2:
-                this.setPosY(this.getPosY()+1);
-                break;
-            case 3:
-                this.setPosX(this.getPosX()-1);
-                break;
-        }
-//        this.draw(graphics);
     }
 }
