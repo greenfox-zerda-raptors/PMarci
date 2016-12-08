@@ -15,10 +15,12 @@ abstract class Character extends GameObject {
         put(3, "left");
     }};
     private int[][] currentArea = Area.areaMatrix;
-    private double maxHealthPoints;
-    private double currentHealthPoints;
-    private double defensePoints;
-    private double strikePoints;
+    private Double maxHealthPoints = 10.;
+    private Double currentHealthPoints;
+    private Double defensePoints = 10.;
+    private Double strikePoints = 10.;
+    private int charLevel;
+    private Double hasKey;
 
     Character(GridPoint gridPoint) {
         super(gridPoint);
@@ -32,6 +34,10 @@ abstract class Character extends GameObject {
     }
 
     abstract String getObjectImageString(String facing);
+
+    public String toString() {
+        return String.format("Hero (Level %d) HP %.1f / %d | DP %d | SP: %d", charLevel, currentHealthPoints, maxHealthPoints.intValue(), defensePoints.intValue(), strikePoints.intValue());
+    }
 
     void move(int direction) {
         if (lookAtNeighbors(currentArea, this.position)[direction] == 0) {

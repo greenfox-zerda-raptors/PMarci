@@ -11,13 +11,14 @@ public class Main extends JFrame {
     private Main() {
         Board board = new Board();
         this.add(board);
-        board.setPreferredSize(new Dimension(792, 792));
+        board.setPreferredSize(new Dimension(792, 950));
         board.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         this.setVisible(true);
         pack();
     }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
