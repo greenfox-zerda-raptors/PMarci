@@ -8,6 +8,7 @@ public class Boss extends Character {
     Boss(GridPoint gridPoint) {
         super(gridPoint);
         changeImage(getObjectImageString(""));
+        setCharName("Boss");
     }
 
     @Override

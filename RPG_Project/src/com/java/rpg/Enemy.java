@@ -9,7 +9,7 @@ public class Enemy extends Character {
     Enemy(GridPoint gridPoint) {
         super(gridPoint);
         changeImage(getObjectImageString(""));
-
+        setCharName("Skeleton");
     }
 
     @Override

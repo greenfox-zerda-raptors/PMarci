@@ -15,12 +15,14 @@ abstract class Character extends GameObject {
         put(3, "left");
     }};
     private int[][] currentArea = Area.areaMatrix;
-    private Double maxHealthPoints = 10.;
+    private int maxHealthPoints = 0;
     private Double currentHealthPoints;
     private Double defensePoints = 10.;
-    private Double strikePoints = 10.;
+    private int strikePoints = 0;
     private int charLevel;
-    private Double hasKey;
+    private boolean hasKey;
+    private String charName;
+    private String keyString = "";
 
     Character(GridPoint gridPoint) {
         super(gridPoint);
@@ -36,7 +38,7 @@ abstract class Character extends GameObject {
     abstract String getObjectImageString(String facing);
 
     public String toString() {
-        return String.format("Hero (Level %d) HP %.1f / %d | DP %d | SP: %d", charLevel, currentHealthPoints, maxHealthPoints.intValue(), defensePoints.intValue(), strikePoints.intValue());
+        return String.format("%s (Level %d) HP %.1f/%d | DP: %d | SP: %d %s", charName, charLevel, currentHealthPoints, maxHealthPoints, defensePoints.intValue(), strikePoints, keyString);
     }
 
     void move(int direction) {
@@ -60,5 +62,66 @@ abstract class Character extends GameObject {
                     break;
             }
         }
+    }
+
+    public String getCharName() {
+        return charName;
+    }
+
+    public void setCharName(String charName) {
+        this.charName = charName;
+    }
+
+    public int getMaxHealthPoints() {
+        return maxHealthPoints;
+    }
+
+    public void setMaxHealthPoints(int maxHealthPoints) {
+        this.maxHealthPoints = maxHealthPoints;
+    }
+
+    public Double getCurrentHealthPoints() {
+        return currentHealthPoints;
+    }
+
+    public void setCurrentHealthPoints(Double currentHealthPoints) {
+        this.currentHealthPoints = currentHealthPoints;
+    }
+
+    public Double getDefensePoints() {
+        return defensePoints;
+    }
+
+    public void setDefensePoints(Double defensePoints) {
+        this.defensePoints = defensePoints;
+    }
+
+    public int getStrikePoints() {
+        return strikePoints;
+    }
+
+    public void setStrikePoints(int strikePoints) {
+        this.strikePoints = strikePoints;
+    }
+
+    public int getCharLevel() {
+        return charLevel;
+    }
+
+    public void setCharLevel(int charLevel) {
+        this.charLevel = charLevel;
+    }
+
+    public boolean getHasKey() {
+        return hasKey;
+    }
+
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = hasKey;
+        keyString = (hasKey) ? "(He has the Key!)" : "";
+    }
+
+    public String getKeyString() {
+        return keyString;
     }
 }

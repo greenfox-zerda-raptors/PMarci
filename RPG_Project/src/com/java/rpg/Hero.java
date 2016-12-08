@@ -16,6 +16,8 @@ class Hero extends Character {
     Hero(GridPoint gridPoint) {
         super(gridPoint);
         getObjectImageString(Character.directionList.get(2));
+        setCharName("Hero");
+        setMaxHealthPoints(20 + BattleLogic.d6(3));
 
     }
 
