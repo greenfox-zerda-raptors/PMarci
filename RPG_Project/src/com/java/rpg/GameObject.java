@@ -63,4 +63,25 @@ abstract class GameObject extends JComponent {
             graphics.drawImage(image, gridPoint.getX(), gridPoint.getY(), null);
         }
     }
+
+    int[] lookAtNeighbors(int[][] areaMatrix, GridPoint point) {
+        int[] neighbors = new int[4];
+        int row = areaMatrix.length;
+        int col = areaMatrix[0].length;
+
+        if (-1 < point.getGridY() - 1) {
+            neighbors[0] = areaMatrix[point.getGridX()][point.getGridY() - 1];
+        }
+        if (point.getGridX() + 1 < row) {
+            neighbors[1] = areaMatrix[point.getGridX() + 1][point.getGridY()];
+        }
+        if (point.getGridY() + 1 < col) {
+            neighbors[2] = areaMatrix[point.getGridX()][point.getGridY() + 1];
+        }
+        if (-1 < point.getGridX() - 1) {
+            neighbors[3] = areaMatrix[point.getGridX() - 1][point.getGridY()];
+        }
+        return neighbors;
+    }
+
 }

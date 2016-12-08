@@ -14,7 +14,7 @@ abstract class Character extends GameObject {
         put(2, "down");
         put(3, "left");
     }};
-
+    private int[][] currentArea = Area.areaMatrix;
     private double maxHealthPoints;
     private double currentHealthPoints;
     private double defensePoints;
@@ -34,7 +34,7 @@ abstract class Character extends GameObject {
     abstract String getObjectImageString(String facing);
 
     void move(int direction) {
-        if ((Area.lookAtNeighbors(this.position)[direction] == 0)) {
+        if (lookAtNeighbors(currentArea, this.position)[direction] == 0) {
             switch (direction) {
                 case 0:
                     if ((this.position).getGridY() > 0)

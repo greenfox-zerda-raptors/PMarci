@@ -15,9 +15,15 @@ public class GridPoint {
         this.gridY = gridY * 72;
     }
 
+    public Point2D getPoint2D() {
+        Point2D temp = new Point2D.Double((double) this.getGridX(), this.getGridY());
+        return temp;
+    }
+
     public int getGridX() {
         return gridX / 72;
     }
+
     public int getX() {
         return gridX;
     }
@@ -26,6 +32,7 @@ public class GridPoint {
     public int getGridY() {
         return gridY / 72;
     }
+
     public int getY() {
         return gridY;
     }
@@ -33,6 +40,7 @@ public class GridPoint {
     public void setGridX(int gridX) {
         this.gridX = gridX * 72;
     }
+
     public void setGridY(int gridY) {
         this.gridY = gridY * 72;
     }

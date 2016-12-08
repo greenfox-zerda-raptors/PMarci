@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -15,17 +16,20 @@ class Board extends JPanel {
     private ArrayList<GameObject> presentObjects = new ArrayList<>();
     private Hero theHero;
     private Enemy testEnemy;
+    Area area;
 
 
     Board() {
-        Area area = new Area();
+        area = new Area();
         this.add(area);
         setPreferredSize(new Dimension(792, 792));
         this.addKeyListener(new moveKeyListener());
         this.setFocusable(true);
         testEnemy = new Enemy(new GridPoint(4, 2));
         theHero = new Hero(new GridPoint(0, 0));
-        presentObjects.add(testEnemy);
+//        presentObjects.add(testEnemy);
+        presentObjects.addAll(generateEnemies());
+        presentObjects.add(generateBoss());
         presentObjects.add(theHero);
     }
 
@@ -69,5 +73,46 @@ class Board extends JPanel {
         public void keyReleased(KeyEvent e) {
 
         }
+    }
+
+    GridPoint getAValidGridPoint() {
+        Random random = new Random();
+        GridPoint validGridPoint = null;
+        while (validGridPoint == null) {
+            GridPoint triedGridPoint = new GridPoint(random.nextInt(11), random.nextInt(11));
+            if (Area.areaMatrix[triedGridPoint.getGridX()][triedGridPoint.getGridY()] == 0 && isGridPointOccupied(triedGridPoint)) {
+                validGridPoint = triedGridPoint;
+            }
+        }
+        return validGridPoint;
+    }
+
+    ArrayList<GameObject> generateEnemies() {
+        Random random = new Random();
+        int number = 2 + random.nextInt(4);
+        ArrayList<GridPoint> validGridPoints = new ArrayList<>();
+        ArrayList<GameObject> enemies = new ArrayList<>();
+        while (validGridPoints.size() < number) {
+            validGridPoints.add(getAValidGridPoint());
+        }
+        for (GridPoint gridPoint : validGridPoints) {
+            enemies.add(new Enemy(gridPoint));
+        }
+        return enemies;
+    }
+
+    GameObject generateBoss() {
+        Enemy boss = new Enemy(getAValidGridPoint());
+        return boss;
+    }
+
+    boolean isGridPointOccupied(GridPoint gridPointToTest) {
+        for (GameObject gameObject : presentObjects) {
+            GridPoint presentGridPoint = gameObject.getPosition();
+            if ((gridPointToTest.getGridX() == presentGridPoint.getGridX()) && (gridPointToTest.getGridY() == presentGridPoint.getGridY()) || (gridPointToTest.getGridX() == 0 && gridPointToTest.getGridY() == 0)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

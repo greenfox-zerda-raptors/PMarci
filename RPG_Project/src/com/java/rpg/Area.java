@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Area extends GameObject {
     private static HardCodedMaps maplist = new HardCodedMaps();
-    private static int[][] areaMatrix = maplist.get(0);
+    static int[][] areaMatrix = maplist.get(0);
 
     Area() {
         setPreferredSize(new Dimension(792, 792));
@@ -93,12 +93,12 @@ public class Area extends GameObject {
             }
         }
         for (GridPoint gridpoint : toBeUnblocked) {
-            int[] neighbors = lookAtNeighbors(gridpoint);
+            int[] neighbors = lookAtNeighbors(areaMatrix, gridpoint);
             for (int i = 0; i < 5; i++) {
                 if (neighbors[i] == 1) {
                     switch (i) {
                         case 0:
-                            int[] secondDegreeNeighbors = lookAtNeighbors(new GridPoint(gridpoint.getGridX(), gridpoint.getGridY() - 1));
+                            int[] secondDegreeNeighbors = lookAtNeighbors(areaMatrix, new GridPoint(gridpoint.getGridX(), gridpoint.getGridY() - 1));
                             if (secondDegreeNeighbors[i] == 1) {
 //                                nWallswithNSpaces.add()
                             }
@@ -116,7 +116,7 @@ public class Area extends GameObject {
 
     private int[] lookAtNeighborsRecursiveWorker(GridPoint gridpoint, int depth, int limit, int[] lookFor) {
         if (depth < limit) {
-            int[] neighbors = lookAtNeighbors(gridpoint);
+            int[] neighbors = lookAtNeighbors(areaMatrix, gridpoint);
             for (int i = 0; i < 4; i++) {
                 if (neighbors[i] == lookFor[depth]) {
                     switch (i) {
@@ -140,25 +140,4 @@ public class Area extends GameObject {
         }
         return null;
     }
-
-    static int[] lookAtNeighbors(GridPoint point) {
-        int[] neighbors = new int[4];
-        int row = areaMatrix.length;
-        int col = areaMatrix[0].length;
-
-        if (-1 < point.getGridY() - 1) {
-            neighbors[0] = areaMatrix[point.getGridX()][point.getGridY() - 1];
-        }
-        if (point.getGridX() + 1 < row) {
-            neighbors[1] = areaMatrix[point.getGridX() + 1][point.getGridY()];
-        }
-        if (point.getGridY() + 1 < col) {
-            neighbors[2] = areaMatrix[point.getGridX()][point.getGridY() + 1];
-        }
-        if (-1 < point.getGridX() - 1) {
-            neighbors[3] = areaMatrix[point.getGridX() - 1][point.getGridY()];
-        }
-        return neighbors;
-    }
-
 }
