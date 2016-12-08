@@ -14,6 +14,7 @@ import java.util.ArrayList;
 class Board extends JPanel {
     private ArrayList<GameObject> presentObjects = new ArrayList<>();
     private Hero theHero;
+    private Enemy testEnemy;
 
 
     Board() {
@@ -22,7 +23,9 @@ class Board extends JPanel {
         setPreferredSize(new Dimension(792, 792));
         this.addKeyListener(new moveKeyListener());
         this.setFocusable(true);
+        testEnemy = new Enemy(new GridPoint(4, 2));
         theHero = new Hero(new GridPoint(0, 0));
+        presentObjects.add(testEnemy);
         presentObjects.add(theHero);
     }
 

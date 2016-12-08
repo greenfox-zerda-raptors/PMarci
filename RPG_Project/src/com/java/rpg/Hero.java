@@ -7,7 +7,7 @@ package com.java.rpg;
 class Hero extends Character {
 
 
-    String setObjectImage(String facing) {
+    String getObjectImageString(String facing) {
 
         return dir + "\\Images\\" + "hero-" + facing + ".png";
 
@@ -15,13 +15,13 @@ class Hero extends Character {
 
     Hero(GridPoint gridPoint) {
         super(gridPoint);
-        setObjectImage(Character.directionList.get(2));
+        getObjectImageString(Character.directionList.get(2));
 
     }
 
     void move(int direction) {
         super.move(direction);
-        changeImage(setObjectImage(Character.directionList.get(direction)));
+        changeImage(getObjectImageString(Character.directionList.get(direction)));
 
     }
 }

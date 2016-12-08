@@ -31,6 +31,8 @@ abstract class Character extends GameObject {
         }
     }
 
+    abstract String getObjectImageString(String facing);
+
     void move(int direction) {
         if ((Area.lookAtNeighbors(this.position)[direction] == 0)) {
             switch (direction) {
