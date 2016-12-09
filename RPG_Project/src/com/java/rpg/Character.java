@@ -15,7 +15,7 @@ abstract class Character extends GameObject {
         put(3, "left");
     }};
     private int[][] currentArea = Area.areaMatrix;
-    private int maxHealthPoints = 0;
+    int maxHealthPoints = 0;
     private Double currentHealthPoints;
     private Double defensePoints = 10.;
     private int strikePoints = 0;

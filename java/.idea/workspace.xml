@@ -6,8 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67a88de4-d10d-4ea1-bb85-502bcfbfd3c4" name="Default" comment="should commit more often commit">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RPG_Project/Test/com/java/rpg/AreaTest.java" afterPath="$PROJECT_DIR$/../RPG_Project/Test/com/java/rpg/AreaTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/BattleLogic.java" afterPath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/BattleLogic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Board.java" afterPath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Board.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Character.java" afterPath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Character.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Enemy.java" afterPath="$PROJECT_DIR$/../RPG_Project/src/com/java/rpg/Enemy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="6c8dbaac-233a-44a7-9478-edf3e11c59b4" name="he?" comment="" />

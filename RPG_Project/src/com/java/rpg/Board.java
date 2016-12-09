@@ -12,6 +12,7 @@ import java.util.*;
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 class Board extends JPanel {
+    private ArrayList<Character> objectsPermaList = new ArrayList<>();
     private ArrayList<Character> presentObjectsList = new ArrayList<>();
     private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>();
 
@@ -30,13 +31,11 @@ class Board extends JPanel {
         this.setFocusable(true);
         theHero = new Hero(new GridPoint(0, 0));
         boss = generateBoss();
-        presentObjectsList.add(boss);
-        presentObjectsList.addAll(generateEnemies());
-        giveKey(presentObjectsList);
-        presentObjectsList.add(theHero); //important to add last
-        for (GameObject gameObject : presentObjectsList) {
-            objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
-        }
+        objectsPermaList.add(boss);
+        objectsPermaList.addAll(generateEnemies());
+        giveKey(objectsPermaList);
+        objectsPermaList.add(theHero); //important to add last
+        updateObjectsToBeDrawn();
     }
 
     public GameObject getEnemyStoodOn() {
@@ -111,15 +110,27 @@ class Board extends JPanel {
             } else if (keyCode == KeyEvent.VK_LEFT) {
                 theHero.move(3);
             } else if (keyCode == KeyEvent.VK_SPACE && (enemyStoodOn != null)) {
-                BattleLogic.strike(getEnemyStoodOn().getObjectID(), (Character) getEnemyStoodOn());
+                int enemyToStrikeID = getEnemyStoodOn().getObjectID();
+                BattleLogic.strike(enemyToStrikeID, (Character) getEnemyStoodOn());
+                if (((Character) getEnemyStoodOn()).getCurrentHealthPoints() <= 0) {
+                    removeKilledEnemy(enemyToStrikeID);
+                    updateObjectsToBeDrawn();
+                }
             }
-//            theHero.updateMappedPos(objectsToBeDrawn);
             repaint();
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
 
+        }
+
+    }
+
+    private void updateObjectsToBeDrawn() {
+        objectsToBeDrawn.clear();
+        for (GameObject gameObject : objectsPermaList) {
+            objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
         }
 
     }
@@ -169,7 +180,7 @@ class Board extends JPanel {
     }
 
     private boolean isGridPointOccupied(GridPoint gridPointToTest) {
-        for (GameObject gameObject : presentObjectsList) {
+        for (GameObject gameObject : objectsPermaList) {
             GridPoint presentGridPoint = gameObject.getPosition();
             if (gridPointToTest.getGridX() == 0 && gridPointToTest.getGridY() == 0) {
                 return true;
@@ -179,7 +190,8 @@ class Board extends JPanel {
         }
         return false;
     }
+
     void removeKilledEnemy(int objectID) {
-        presentObjectsList.remove(objectID-1);
+        objectsPermaList.remove(objectID - 1);
     }
 }

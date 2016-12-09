@@ -11,6 +11,8 @@ public class Enemy extends Character {
         changeImage(getObjectImageString(""));
         setCharName("Skeleton");
         setObjectID(2);
+        setMaxHealthPoints(30);
+        setCurrentHealthPoints((double) maxHealthPoints);
     }
 
     Enemy(GridPoint gridPoint, int objectID) {

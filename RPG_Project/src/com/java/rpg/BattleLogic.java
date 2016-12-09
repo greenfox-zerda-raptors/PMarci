@@ -11,6 +11,7 @@ public class BattleLogic {
     private static Random random = new Random();
 
     static void strike(int objectID, Character enemyStoodOn) {
+        enemyStoodOn.setCurrentHealthPoints(enemyStoodOn.getCurrentHealthPoints() - 20);
         System.out.printf("%s with ID %s struck! %n", enemyStoodOn.getCharName(), objectID);
     }
 
