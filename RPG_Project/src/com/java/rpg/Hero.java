@@ -17,10 +17,12 @@ class Hero extends Character {
         super(gridPoint);
         getObjectImageString(Character.directionList.get(2));
         setCharName("Hero");
+        setObjectID(0);
         setMaxHealthPoints(20 + BattleLogic.d6(3));
 
     }
 
+    @Override
     void move(int direction) {
         super.move(direction);
         changeImage(getObjectImageString(Character.directionList.get(direction)));

@@ -9,6 +9,7 @@ public class Boss extends Character {
         super(gridPoint);
         changeImage(getObjectImageString(""));
         setCharName("Boss");
+        setObjectID(1);
     }
 
     @Override

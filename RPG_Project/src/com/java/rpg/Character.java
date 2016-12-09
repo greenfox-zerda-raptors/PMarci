@@ -41,6 +41,11 @@ abstract class Character extends GameObject {
         return String.format("%s (Level %d) HP %.1f/%d | DP: %d | SP: %d %s", charName, charLevel, currentHealthPoints, maxHealthPoints, defensePoints.intValue(), strikePoints, keyString);
     }
 
+//    @Override
+//    public void updateMappedPos(HashMap<GridPoint, GameObject> objectsToBeDrawn) {
+//        objectsToBeDrawn.replace(this.getPosition(), this, )
+//    }
+
     void move(int direction) {
         if (lookAtNeighbors(currentArea, this.position)[direction] == 0) {
             switch (direction) {
@@ -124,4 +129,5 @@ abstract class Character extends GameObject {
     public String getKeyString() {
         return keyString;
     }
+
 }

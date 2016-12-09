@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Created by posam on 2016-12-05.
@@ -16,6 +17,7 @@ abstract class GameObject extends JComponent {
     static File dir = new File(dirPath);
     String floor = dir + "\\Images\\" + "floor.png";
     String wall = dir + "\\Images\\" + "wall.png";
+    private int objectID;
 
     BufferedImage image;
     GridPoint position;
@@ -82,6 +84,21 @@ abstract class GameObject extends JComponent {
             neighbors[3] = areaMatrix[point.getGridX() - 1][point.getGridY()];
         }
         return neighbors;
+    }
+
+    public int getObjectID() {
+        return objectID;
+    }
+
+    public void setObjectID(int objectID) {
+        this.objectID = objectID;
+    }
+
+    public void updateMappedPos(HashMap<GridPoint, GameObject> objectsToBeDrawn) {
+    }
+
+    String getKeyString() {
+        return "dikkkkkkkk";
     }
 
 }

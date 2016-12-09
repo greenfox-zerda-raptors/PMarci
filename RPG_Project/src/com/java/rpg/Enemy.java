@@ -10,6 +10,12 @@ public class Enemy extends Character {
         super(gridPoint);
         changeImage(getObjectImageString(""));
         setCharName("Skeleton");
+        setObjectID(2);
+    }
+
+    Enemy(GridPoint gridPoint, int objectID) {
+        this(gridPoint);
+        setObjectID(objectID);
     }
 
     @Override

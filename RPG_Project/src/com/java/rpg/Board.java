@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -14,10 +13,12 @@ import java.util.Random;
  */
 class Board extends JPanel {
     private ArrayList<Character> objectsPermaList = new ArrayList<>();
-    private ArrayList<Character> objectsToBeDrawn = new ArrayList<>();
+    //    private ArrayList<Character> objectsToBeDrawn = new ArrayList<>();
+    private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>(); //TODO reverse Key, value maybe? create reversed version?
+//    private SparseArray<GameObject> gameObjectFirst = new LinkedHashMap<>(); //TODO reverse Key, value maybe? create reversed version?
 
 
-    private Character enemyStoodOn;
+    private GameObject enemyStoodOn;
     private Hero theHero;
     private Boss boss;
     Area area;
@@ -35,15 +36,21 @@ class Board extends JPanel {
         objectsPermaList.addAll(generateEnemies());
         giveKey(objectsPermaList);
         objectsPermaList.add(theHero); //fontos utolsonak
-        objectsToBeDrawn.addAll(objectsPermaList);
+        for (GameObject gameObject : objectsPermaList) {
+            objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
+        }
+
     }
 
-    public Character getEnemyStoodOn() {
+    public GameObject getEnemyStoodOn() {
         return enemyStoodOn;
     }
 
-    public void setEnemyStoodOn(Character enemyStoodOn) {
-        this.enemyStoodOn = enemyStoodOn;
+    public void setEnemyStoodOn(GameObject enemyStoodOn) {
+        if (enemyStoodOn == null) {
+            this.enemyStoodOn = null;
+        } else if (enemyStoodOn.getObjectID() > 0)
+            this.enemyStoodOn = enemyStoodOn;
     }
 
     private void giveKey(ArrayList<Character> presentObjects) {
@@ -53,8 +60,27 @@ class Board extends JPanel {
         keyHolder.setHasKey(true);
     }
 
+    private void putReverse(HashMap<GridPoint, GameObject> getFrom, HashMap<GameObject, GridPoint> putInto) {
+        for (Map.Entry<GridPoint, GameObject> entry : getFrom.entrySet()) {
+            GameObject gameObject = entry.getValue();
+            GridPoint gridPoint = entry.getKey();
+            putInto.put(gameObject, gridPoint);
+        }
+
+    }
+
     void draw(ArrayList<Character> presentObjects, Graphics graphics) {
         for (GameObject gameObject : presentObjects) {
+            Image image = gameObject.image;
+            if (image != null) {
+                graphics.drawImage(image, gameObject.getPosition().getX(), gameObject.getPosition().getY(), null);
+            }
+        }
+    }
+
+    void draw(HashMap<GridPoint, GameObject> objectsToBeDrawn, Graphics graphics) {
+        for (Map.Entry<GridPoint, GameObject> entry : objectsToBeDrawn.entrySet()) {
+            GameObject gameObject = entry.getValue();
             Image image = gameObject.image;
             if (image != null) {
                 graphics.drawImage(image, gameObject.getPosition().getX(), gameObject.getPosition().getY(), null);
@@ -68,10 +94,14 @@ class Board extends JPanel {
         draw(objectsToBeDrawn, graphics);
         graphics.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
         graphics.drawString(theHero.toString(), 20, 850);
-        if (isGridPointOccupied(theHero.getPosition()) > -1) {
-            setEnemyStoodOn(objectsPermaList.get(getEnemyID(theHero.getPosition())));
+        if (!isGridPointOccupied(theHero.getPosition())) {
+            setEnemyStoodOn(null);
+        } else if (isGridPointOccupied(theHero.getPosition()) && (theHero.getPosition().getGridX() != 0 || theHero.getPosition().getGridY() != 0)) {
+            GameObject temp = objectsToBeDrawn.get(theHero.getPosition());
+            setEnemyStoodOn(temp); //TODO change this according to above change
             graphics.drawString(enemyStoodOn.toString(), 20, 900);
-            System.out.println(enemyStoodOn.getKeyString());
+            if (!Objects.equals(enemyStoodOn.getKeyString(), ""))
+                System.out.println(enemyStoodOn.getKeyString());
         }
     }
 
@@ -92,9 +122,10 @@ class Board extends JPanel {
                 theHero.move(2);
             } else if (keyCode == KeyEvent.VK_LEFT) {
                 theHero.move(3);
-            } else if (keyCode == KeyEvent.VK_SPACE) {
-                BattleLogic.strike(getEnemyID(theHero.getPosition()), getEnemyStoodOn());
+            } else if (keyCode == KeyEvent.VK_SPACE && (enemyStoodOn != null)) {
+                BattleLogic.strike(getEnemyStoodOn().getObjectID(), (Character) getEnemyStoodOn());
             }
+//            theHero.updateMappedPos(objectsToBeDrawn);
             repaint();
         }
 
@@ -105,12 +136,12 @@ class Board extends JPanel {
 
     }
 
-    GridPoint getAValidGridPoint() {
+    private GridPoint getAValidGridPoint() {
         Random random = new Random();
         GridPoint validGridPoint = null;
         while (validGridPoint == null) {
             GridPoint triedGridPoint = new GridPoint(random.nextInt(11), random.nextInt(11));
-            if (Area.areaMatrix[triedGridPoint.getGridX()][triedGridPoint.getGridY()] == 0 && (isGridPointOccupied(triedGridPoint) == -1) || (objectsPermaList.isEmpty() && Area.areaMatrix[triedGridPoint.getGridX()][triedGridPoint.getGridY()] == 0)) {
+            if (Area.areaMatrix[triedGridPoint.getGridX()][triedGridPoint.getGridY()] == 0 && !isGridPointOccupied(triedGridPoint)) {
                 validGridPoint = triedGridPoint;
             }
         }
@@ -119,14 +150,16 @@ class Board extends JPanel {
 
     private ArrayList<Character> generateEnemies() {
         Random random = new Random();
-        int number = 3 + random.nextInt(3);
+        int number = 80/*3 + random.nextInt(100)*/;
         ArrayList<GridPoint> validGridPoints = new ArrayList<>();
         ArrayList<Character> enemies = new ArrayList<>();
         while (validGridPoints.size() <= number) {
             validGridPoints.add(getAValidGridPoint());
         }
+        int uniqueID = 2;
         for (GridPoint gridPoint : validGridPoints) {
-            enemies.add(new Enemy(gridPoint));
+            enemies.add(new Enemy(gridPoint, uniqueID));
+            uniqueID++;
         }
         return enemies;
     }
@@ -135,25 +168,15 @@ class Board extends JPanel {
         return new Boss(getAValidGridPoint());
     }
 
-    private int getEnemyID(GridPoint gridPointToTest) {
-        int enemyID;
-        enemyID = isGridPointOccupied(theHero.getPosition());
-        System.out.println(enemyID);
-        return enemyID;
-    }
-
-    private int isGridPointOccupied(GridPoint gridPointToTest) {
-        if (objectsPermaList.isEmpty()) {
-            return 0;
-        }
+    private boolean isGridPointOccupied(GridPoint gridPointToTest) {
         for (GameObject gameObject : objectsPermaList) {
             GridPoint presentGridPoint = gameObject.getPosition();
             if (gridPointToTest.getGridX() == 0 && gridPointToTest.getGridY() == 0) {
-                return 0;
-            } else if (!(objectsPermaList.indexOf(gameObject) == objectsPermaList.size() - 1) && (gridPointToTest.getGridX() == presentGridPoint.getGridX()) && (gridPointToTest.getGridY() == presentGridPoint.getGridY())) {
-                return objectsPermaList.indexOf(gameObject);
+                return true;
+            } else if (gameObject.getObjectID() > 0 && (gridPointToTest.getGridX() == presentGridPoint.getGridX()) && (gridPointToTest.getGridY() == presentGridPoint.getGridY())) {
+                return true;
             }
         }
-        return -1;
+        return false;
     }
 }
