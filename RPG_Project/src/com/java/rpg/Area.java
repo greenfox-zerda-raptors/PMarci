@@ -2,6 +2,8 @@ package com.java.rpg;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -139,5 +141,21 @@ public class Area extends GameObject {
             }
         }
         return null;
+    }
+
+    int getNumberOfZeros(int[][] areaMatrix) {
+        int number = 0;
+        int frequency;
+        for (int[] row : areaMatrix) {
+            Integer[] integerArray = new Integer[row.length];
+            int i = 0;
+            for (int value : row) {
+                integerArray[i++] = value;
+            }
+            java.util.List<Integer> intList = Arrays.asList(integerArray);
+            frequency = Collections.frequency(intList, 0);
+            number += frequency;
+        }
+        return number;
     }
 }

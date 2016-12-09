@@ -14,8 +14,7 @@ import java.util.*;
 class Board extends JPanel {
     private ArrayList<Character> objectsPermaList = new ArrayList<>();
     //    private ArrayList<Character> objectsToBeDrawn = new ArrayList<>();
-    private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>(); //TODO reverse Key, value maybe? create reversed version?
-//    private SparseArray<GameObject> gameObjectFirst = new LinkedHashMap<>(); //TODO reverse Key, value maybe? create reversed version?
+    private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>();
 
 
     private GameObject enemyStoodOn;
@@ -39,6 +38,7 @@ class Board extends JPanel {
         for (GameObject gameObject : objectsPermaList) {
             objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
         }
+        area.getNumberOfZeros(area.areaMatrix);
 
     }
 
@@ -48,7 +48,7 @@ class Board extends JPanel {
 
     public void setEnemyStoodOn(GameObject enemyStoodOn) {
         if (enemyStoodOn == null) {
-            this.enemyStoodOn = null;
+            this.enemyStoodOn = enemyStoodOn;
         } else if (enemyStoodOn.getObjectID() > 0)
             this.enemyStoodOn = enemyStoodOn;
     }
@@ -67,15 +67,6 @@ class Board extends JPanel {
             putInto.put(gameObject, gridPoint);
         }
 
-    }
-
-    void draw(ArrayList<Character> presentObjects, Graphics graphics) {
-        for (GameObject gameObject : presentObjects) {
-            Image image = gameObject.image;
-            if (image != null) {
-                graphics.drawImage(image, gameObject.getPosition().getX(), gameObject.getPosition().getY(), null);
-            }
-        }
     }
 
     void draw(HashMap<GridPoint, GameObject> objectsToBeDrawn, Graphics graphics) {
@@ -98,7 +89,7 @@ class Board extends JPanel {
             setEnemyStoodOn(null);
         } else if (isGridPointOccupied(theHero.getPosition()) && (theHero.getPosition().getGridX() != 0 || theHero.getPosition().getGridY() != 0)) {
             GameObject temp = objectsToBeDrawn.get(theHero.getPosition());
-            setEnemyStoodOn(temp); //TODO change this according to above change
+            setEnemyStoodOn(temp);
             graphics.drawString(enemyStoodOn.toString(), 20, 900);
             if (!Objects.equals(enemyStoodOn.getKeyString(), ""))
                 System.out.println(enemyStoodOn.getKeyString());
@@ -150,10 +141,10 @@ class Board extends JPanel {
 
     private ArrayList<Character> generateEnemies() {
         Random random = new Random();
-        int number = 80/*3 + random.nextInt(100)*/;
-        ArrayList<GridPoint> validGridPoints = new ArrayList<>();
+        int number = 72/*3 + random.nextInt(100)*/;
+        LinkedHashSet<GridPoint> validGridPoints = new LinkedHashSet<>();
         ArrayList<Character> enemies = new ArrayList<>();
-        while (validGridPoints.size() <= number) {
+        while (validGridPoints.size() < number) {
             validGridPoints.add(getAValidGridPoint());
         }
         int uniqueID = 2;
