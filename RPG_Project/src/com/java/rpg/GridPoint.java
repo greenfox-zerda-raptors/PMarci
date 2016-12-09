@@ -75,7 +75,7 @@ public class GridPoint implements Comparable<GridPoint> {
     public int hashCode() {
         int hash = 3;
         hash = 53 * hash + this.getGridX();
-        hash = 53 * hash + this.getGridY();
+        hash = 59 * hash + this.getGridY();
         return hash;
     }
 }

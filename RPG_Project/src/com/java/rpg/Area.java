@@ -28,13 +28,13 @@ public class Area extends GameObject {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        GameObject tile = new Tile(floor, new GridPoint(0, 0));
+        Tile tile = new Tile(Tile.floor, new GridPoint(0, 0));
         for (int j = 0; j < 11; j++) {
             for (int i = 0; i < 11; i++) {
                 if (areaMatrix[i][j] == 0 || (i == 0 && j == 0)) {
-                    tile = new Tile(floor, new GridPoint(i, j));
+                    tile = new Tile(Tile.floor, new GridPoint(i, j));
                 } else if (areaMatrix[i][j] == 1) {
-                    tile = new Tile(wall, new GridPoint(i, j));
+                    tile = new Tile(Tile.wall, new GridPoint(i, j));
                 }
                 tile.draw(graphics);
             }

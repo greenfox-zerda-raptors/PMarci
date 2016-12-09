@@ -15,8 +15,6 @@ import java.util.HashMap;
 abstract class GameObject extends JComponent {
     private static String dirPath = System.getProperty("user.dir");
     static File dir = new File(dirPath);
-    String floor = dir + "\\Images\\" + "floor.png";
-    String wall = dir + "\\Images\\" + "wall.png";
     private int objectID;
 
     BufferedImage image;

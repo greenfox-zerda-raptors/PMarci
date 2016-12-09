@@ -6,9 +6,11 @@ import java.awt.*;
  * Created by posam on 2016-12-07.
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
-public class Tile extends GameObject {
+class Tile extends GameObject {
+    static String floor = dir + "\\Images\\" + "floor.png";
+    static String wall = dir + "\\Images\\" + "wall.png";
 
-    public Tile(String filename, GridPoint gridPoint) {
+    Tile(String filename, GridPoint gridPoint) {
         super(filename, gridPoint);
     }
 

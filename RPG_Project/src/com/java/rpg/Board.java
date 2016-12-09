@@ -13,7 +13,7 @@ import java.util.*;
  */
 class Board extends JPanel {
     private ArrayList<Character> objectsPermaList = new ArrayList<>();
-    private ArrayList<Character> presentObjectsList = new ArrayList<>();
+    private LinkedHashMap<Integer, GameObject> presentObjectsMap = new LinkedHashMap<>();
     private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>();
 
 
@@ -34,7 +34,10 @@ class Board extends JPanel {
         objectsPermaList.add(boss);
         objectsPermaList.addAll(generateEnemies());
         giveKey(objectsPermaList);
-        objectsPermaList.add(theHero); //important to add last
+        objectsPermaList.add(theHero);//important to add last
+        for (GameObject gameObject : objectsPermaList) {
+            presentObjectsMap.put(gameObject.getObjectID(), (Character) gameObject);
+        }
         updateObjectsToBeDrawn();
     }
 
@@ -49,10 +52,10 @@ class Board extends JPanel {
             this.enemyStoodOn = enemyStoodOn;
     }
 
-    private void giveKey(ArrayList<Character> presentObjects) {
+    private void giveKey(ArrayList<Character> permaListInput) {
         Random random = new Random();
-        int keyHolderIndex = 1 + random.nextInt(presentObjects.size() - 1);
-        Character keyHolder = presentObjects.get(keyHolderIndex);
+        int keyHolderIndex = 1 + random.nextInt(permaListInput.size() - 1);
+        Character keyHolder = permaListInput.get(keyHolderIndex);
         keyHolder.setHasKey(true);
     }
 
@@ -129,8 +132,8 @@ class Board extends JPanel {
 
     private void updateObjectsToBeDrawn() {
         objectsToBeDrawn.clear();
-        for (GameObject gameObject : objectsPermaList) {
-            objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
+        for (Map.Entry<Integer, GameObject> entry : presentObjectsMap.entrySet()) {
+            objectsToBeDrawn.put(entry.getValue().getPosition(), entry.getValue());
         }
 
     }
@@ -192,6 +195,6 @@ class Board extends JPanel {
     }
 
     void removeKilledEnemy(int objectID) {
-        objectsPermaList.remove(objectID - 1);
+        presentObjectsMap.remove(objectID);
     }
 }
