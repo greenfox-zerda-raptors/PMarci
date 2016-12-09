@@ -10,9 +10,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class AreaTest {
     @Test
-    public void getNumberOfZeros() throws Exception {
+    public void getNumberOfZerosTest() throws Exception {
         HardCodedMaps maps = new HardCodedMaps();
-        assertEquals(74, Area.areaMatrix);
+        Area area = new Area();
+        assertEquals(74, area.getNumberOfZeros(maps.get(0)));
     }
 
 }

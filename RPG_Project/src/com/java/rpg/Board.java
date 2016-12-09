@@ -12,8 +12,7 @@ import java.util.*;
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 class Board extends JPanel {
-    private ArrayList<Character> objectsPermaList = new ArrayList<>();
-    //    private ArrayList<Character> objectsToBeDrawn = new ArrayList<>();
+    private ArrayList<Character> presentObjectsList = new ArrayList<>();
     private LinkedHashMap<GridPoint, GameObject> objectsToBeDrawn = new LinkedHashMap<>();
 
 
@@ -31,15 +30,13 @@ class Board extends JPanel {
         this.setFocusable(true);
         theHero = new Hero(new GridPoint(0, 0));
         boss = generateBoss();
-        objectsPermaList.add(boss);
-        objectsPermaList.addAll(generateEnemies());
-        giveKey(objectsPermaList);
-        objectsPermaList.add(theHero); //fontos utolsonak
-        for (GameObject gameObject : objectsPermaList) {
+        presentObjectsList.add(boss);
+        presentObjectsList.addAll(generateEnemies());
+        giveKey(presentObjectsList);
+        presentObjectsList.add(theHero); //important to add last
+        for (GameObject gameObject : presentObjectsList) {
             objectsToBeDrawn.put(gameObject.getPosition(), gameObject);
         }
-        area.getNumberOfZeros(area.areaMatrix);
-
     }
 
     public GameObject getEnemyStoodOn() {
@@ -139,13 +136,25 @@ class Board extends JPanel {
         return validGridPoint;
     }
 
+    private GridPoint getAValidGridPoint(LinkedHashSet<GridPoint> alreadyTried) {
+        Random random = new Random();
+        GridPoint validGridPoint = null;
+        while (validGridPoint == null) {
+            GridPoint triedGridPoint = new GridPoint(random.nextInt(11), random.nextInt(11));
+            if (Area.areaMatrix[triedGridPoint.getGridX()][triedGridPoint.getGridY()] == 0 && !isGridPointOccupied(triedGridPoint) && !alreadyTried.contains(triedGridPoint)) {
+                validGridPoint = triedGridPoint;
+            }
+        }
+        return validGridPoint;
+    }
+
     private ArrayList<Character> generateEnemies() {
         Random random = new Random();
-        int number = 72/*3 + random.nextInt(100)*/;
+        int number = Math.min((3 + random.nextInt(3)), area.getNumberOfZeros(Area.areaMatrix) - 2);
         LinkedHashSet<GridPoint> validGridPoints = new LinkedHashSet<>();
         ArrayList<Character> enemies = new ArrayList<>();
         while (validGridPoints.size() < number) {
-            validGridPoints.add(getAValidGridPoint());
+            validGridPoints.add(getAValidGridPoint(validGridPoints));
         }
         int uniqueID = 2;
         for (GridPoint gridPoint : validGridPoints) {
@@ -160,7 +169,7 @@ class Board extends JPanel {
     }
 
     private boolean isGridPointOccupied(GridPoint gridPointToTest) {
-        for (GameObject gameObject : objectsPermaList) {
+        for (GameObject gameObject : presentObjectsList) {
             GridPoint presentGridPoint = gameObject.getPosition();
             if (gridPointToTest.getGridX() == 0 && gridPointToTest.getGridY() == 0) {
                 return true;
@@ -169,5 +178,8 @@ class Board extends JPanel {
             }
         }
         return false;
+    }
+    void removeKilledEnemy(int objectID) {
+        presentObjectsList.remove(objectID-1);
     }
 }
