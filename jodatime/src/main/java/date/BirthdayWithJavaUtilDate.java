@@ -2,20 +2,19 @@ package date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> {
 
     @Override
     public Date parseDate(String str) {
-        // TODO - return with the parsed date; format is: yyyy-MM-dd
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date parsedDate = dateFormat.parse(str);
-            if (!(parsedDate == null)) {
-                return parsedDate;
-            } else return null;
+            return parsedDate;
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -25,23 +24,40 @@ public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> 
     @Override
     public String printMonthAndDay(Date date) {
         // TODO - return the date formatted: month & day (MM. dd.)
-        return null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM.' 'dd.");
+
+        return dateFormat.format(date);
     }
 
     @Override
     public boolean isAnniversaryToday(Date date) {
-        // TODO - return with true if today is the same month+day as date
-        return false;
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        String today = printMonthAndDay(gregorianCalendar.getTime());
+        return printMonthAndDay(date).equals(today);
     }
 
     @Override
     public int calculateAgeInYears(Date birthday) {
+        Calendar todayCal = GregorianCalendar.getInstance();
+        Calendar birthCal = new GregorianCalendar();
+        birthCal.setTime(birthday);
+        int thisYear = todayCal.getTime().getYear();
+        int birthYear = birthday.getYear();
         // TODO - return how many years age the input date 'birthday' was
-        return -1;
+        if (thisYear > birthYear) {
+            if ((todayCal.get(Calendar.DAY_OF_YEAR) > birthCal.get(Calendar.DAY_OF_YEAR))) {
+                return thisYear - birthYear;
+            } else return thisYear - birthYear - 1;
+        } else return 0;
     }
 
     @Override
     public int calculateDaysToNextAnniversary(Date date) {
+        Calendar todayCal = Calendar.getInstance();
+        Calendar dateCal = new GregorianCalendar();
+        dateCal.setTime(date);
+        System.out.println(dateCal.compareTo(todayCal));
+
         // TODO - the number of days remaining to the next anniversary of 'date' (e.g. if tomorrow, return 1)
         return -1;
     }

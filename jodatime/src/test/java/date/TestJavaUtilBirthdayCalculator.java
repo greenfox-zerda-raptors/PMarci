@@ -64,6 +64,7 @@ public final class TestJavaUtilBirthdayCalculator {
         assertEquals(0, birthdayCalculator.calculateAgeInYears(gregorianCalendar.getTime()));
 
         gregorianCalendar = createPreviousYearGregorianCalendar();
+        System.out.println(gregorianCalendar);
         assertEquals(1, birthdayCalculator.calculateAgeInYears(gregorianCalendar.getTime()));
 
         siftCalendarWithDays(gregorianCalendar, 1);
