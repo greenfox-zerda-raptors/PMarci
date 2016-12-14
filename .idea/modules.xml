@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/PMarci.iml" filepath="$PROJECT_DIR$/.idea/PMarci.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ormlite.iml" filepath="$PROJECT_DIR$/.idea/modules/ormlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ormlite_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ormlite_main.iml" group="ormlite" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ormlite_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ormlite_test.iml" group="ormlite" />
     </modules>
   </component>
 </project>
