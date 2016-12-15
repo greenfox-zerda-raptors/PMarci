@@ -1,7 +1,7 @@
 package lombok.animals;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import lombok.foods.Food;
 import org.joda.time.LocalDate;
 
@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by kicsen on 2016. 12. 12..
  */
+@Getter
 public abstract class AbstractAnimal implements Animal {
     private String name;
     private LocalDate birthDate;
@@ -18,6 +19,7 @@ public abstract class AbstractAnimal implements Animal {
     protected Long movedDistanceInMilliMeters = 0L;
     protected Double happiness;
     protected Long weightInGram;
+    protected Integer childrenNumber = children.size();
 
     public AbstractAnimal(String name, long weightInGram, double happiness) {
         this.name = name;
@@ -39,33 +41,33 @@ public abstract class AbstractAnimal implements Animal {
 
     protected abstract int getMoveHappinessDecrease();
 
-    public ImmutableList<? extends Animal> getChildren() {
-        return ImmutableList.copyOf(this.children);
-    }
-
-    public Integer getChildrenNumber() {
-        return this.children.size();
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public LocalDate getBirthDate() {
-        return this.birthDate;
-    }
-
-    public Long getMovedDistanceInMilliMeters() {
-        return this.movedDistanceInMilliMeters;
-    }
-
-    public Double getHappiness() {
-        return this.happiness;
-    }
-
-    public Long getWeightInGram() {
-        return this.weightInGram;
-    }
+    //    public ImmutableList<? extends Animal> getChildren() {
+//        return ImmutableList.copyOf(this.children);
+//    }
+//
+//    public Integer getChildrenNumber() {
+//        return this.children.size();
+//    }
+//
+//    public String getName() {
+//        return this.name;
+//    }
+//
+//    public LocalDate getBirthDate() {
+//        return this.birthDate;
+//    }
+//
+//    public Long getMovedDistanceInMilliMeters() {
+//        return this.movedDistanceInMilliMeters;
+//    }
+//
+//    public Double getHappiness() {
+//        return this.happiness;
+//    }
+//
+//    public Long getWeightInGram() {
+//        return this.weightInGram;
+//    }
 
     public void setMovedDistanceInMilliMeters(Long movedDistanceInMilliMeters) {
         this.movedDistanceInMilliMeters = movedDistanceInMilliMeters;
@@ -109,8 +111,8 @@ public abstract class AbstractAnimal implements Animal {
                     return false;
                 }
 
-                ImmutableList this$children = this.getChildren();
-                ImmutableList other$children = other.getChildren();
+                List this$children = this.getChildren();
+                List other$children = other.getChildren();
                 if (this$children == null) {
                     if (other$children != null) {
                         return false;
@@ -175,7 +177,7 @@ public abstract class AbstractAnimal implements Animal {
         int result1 = result * 59 + ($name == null ? 43 : $name.hashCode());
         LocalDate $birthDate = this.getBirthDate();
         result1 = result1 * 59 + ($birthDate == null ? 43 : $birthDate.hashCode());
-        ImmutableList $children = this.getChildren();
+        List $children = this.getChildren();
         result1 = result1 * 59 + ($children == null ? 43 : $children.hashCode());
         Long $movedDistanceInMilliMeters = this.getMovedDistanceInMilliMeters();
         result1 = result1 * 59 + ($movedDistanceInMilliMeters == null ? 43 : $movedDistanceInMilliMeters.hashCode());

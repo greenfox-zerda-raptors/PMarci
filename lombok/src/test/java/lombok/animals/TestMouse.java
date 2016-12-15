@@ -23,7 +23,7 @@ public class TestMouse {
 
     @Test
     public void testToString() throws Exception {
-        String expected = "Mouse(super=AbstractAnimal(name=Ciccc, birthDate=2016-12-12, children=[], movedDistanceInMilliMeters=0, happiness=200.0, weightInGram=100))";
+        String expected = "Mouse(super=AbstractAnimal(name=Ciccc, birthDate=2016-12-15, children=[], movedDistanceInMilliMeters=0, happiness=200.0, weightInGram=100))";
         assertEquals(expected, mouse.toString());
     }
 

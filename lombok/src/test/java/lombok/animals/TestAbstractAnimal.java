@@ -1,12 +1,12 @@
 package lombok.animals;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.reflect.TypeToken;
 import lombok.extern.java.Log;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ public class TestAbstractAnimal {
 
     @Test
     public void testGetters() throws Exception {
-        Type listType = new TypeToken<ImmutableList<? extends Animal>>() {
+        Type listType = new TypeToken<List<? extends Animal>>() {
         }.getType();
 
         assertEquals(String.class, AbstractAnimal.class.getDeclaredMethod("getName").getGenericReturnType());
