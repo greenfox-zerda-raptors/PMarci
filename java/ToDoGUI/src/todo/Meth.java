@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public abstract class Meth extends JFrame{
+public abstract class Meth extends JFrame {
     public static final String dirPath = System.getProperty("user.dir");
     public static final File dir = new File(dirPath);
     public static File file = null;
@@ -35,6 +35,7 @@ public abstract class Meth extends JFrame{
             System.out.println(e + ": selected list is empty!");
         }
     }
+
     public static void printByLine(File inputfile) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputfile));
@@ -155,6 +156,7 @@ public abstract class Meth extends JFrame{
         }
         return test;
     }
+
     public static void listFiles(File dir) {
         System.out.println("\nFollowing files are available:\n");
         File[] files = dir.listFiles(new FilenameFilter() {
@@ -167,7 +169,7 @@ public abstract class Meth extends JFrame{
         }
         System.out.println("");
         do {
-        if (file!=null && (!file.isFile() || !file.canRead() || !file.canWrite())){
+            if (file != null && (!file.isFile() || !file.canRead() || !file.canWrite())) {
                 System.out.println("File not found or damaged, try again!\n(Type the filename without the directory or extension!)");
             }
             customListName = customListNameEntry(customListName);
@@ -175,6 +177,7 @@ public abstract class Meth extends JFrame{
         } while (!(file.isFile() && file.canRead() && file.canWrite()));
         currentList = createTasklist(customListName, sessionUserName);
     }
+
     public static String customListNameEntry(String customListName) {
         Scanner scanner1 = new Scanner(System.in);
         while (true) {
@@ -188,39 +191,42 @@ public abstract class Meth extends JFrame{
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    System.out.println(e + "Couldn't create File");}
+                    System.out.println(e + "Couldn't create File");
+                }
                 break;
-            } else if (filename.equals("n") || filename.equals("new")){
+            } else if (filename.equals("n") || filename.equals("new")) {
                 System.out.println("You didn't enter a filename!");
-            }
-            else if (!fileSplit[0].isEmpty()){
+            } else if (!fileSplit[0].isEmpty()) {
                 customListName = fileSplit[0];
                 break;
             }
         }
         return customListName;
     }
+
     public static String setUserName(String sessionUserName) {
         Scanner scanner3 = new Scanner(System.in);
         System.out.print("Type the username for this session: ");
         sessionUserName = scanner3.nextLine();
-    return sessionUserName;
+        return sessionUserName;
     }
+
     public static void remList(TaskList<Task> currentList) { //UNDER CONSTRUCTION
         file.delete();
         System.out.printf("List %s was removed! (or was it? %b)\n", currentList.title, file.delete());
     }
-    public void listTasks (TaskList<Task> current, JTextArea area) {
+
+    public void listTasks(TaskList<Task> current, JTextArea area) {
         final String listTaskFormat = "%d - [%c] %s\n";
         char[] compArr = new char[]{' ', 'x'};
         char comp;
         if (current.isEmpty()) {
             System.out.println("No todos for today! :)");
         } else {
-                String toArea = "";
+            String toArea = "";
             for (Task t : current) {
                 comp = (t.isCompleted()) ? compArr[1] : compArr[0];
-                toArea += String.format(listTaskFormat + "\n", current.indexOf(t) + 1, comp, t.getTaskDesc());
+                toArea += String.format(listTaskFormat, current.indexOf(t) + 1, comp, t.getTaskDesc());
             }
             area.setText(toArea);
         }
