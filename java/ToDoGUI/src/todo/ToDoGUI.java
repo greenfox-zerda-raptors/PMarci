@@ -1,9 +1,6 @@
 package todo;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -13,7 +10,6 @@ import java.io.File;
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 public class ToDoGUI extends Meth {
-    private int currentlyHighlighted = 0;
     private JFrame frame;
     private JPanel controlPanel, contentPane;
     private JButton buttonUser, buttonSwitch, buttonComplete;
@@ -28,8 +24,6 @@ public class ToDoGUI extends Meth {
     private JPanel mainPanel;
     private JButton buttonAdd;
     private JButton buttonRemove;
-    private Highlighter.HighlightPainter painter;
-    private Timer timer;
     private Font legjobb = new Font("Comic Sans MS", Font.PLAIN, 24);
 
     private ToDoGUI() {
@@ -53,14 +47,19 @@ public class ToDoGUI extends Meth {
         currentList = createTasklist("DEFAULT1", "DEFAULT2"); //to be implemented
         readByLine(file, currentList);
         listTasks(currentList, listArea);
-        customOut("WHAT'S GOING ON");
-        highlight(currentlyHighlighted);
+        customOut(outLabel, "WHAT'S GOING ON");
+        highlight(listArea, currentlyHighlighted);
         this.pack();
         buttonSwitch.addMouseListener(new ControlListener());
         buttonUser.addMouseListener(new ControlListener());
         buttonAdd.addMouseListener(new ControlListener());
         buttonRemove.addMouseListener(new ControlListener());
         buttonComplete.addMouseListener(new ControlListener());
+        buttonSwitch.addActionListener(new ButtonActionListener());
+        buttonUser.addActionListener(new ButtonActionListener());
+        buttonAdd.addActionListener(new ButtonActionListener());
+        buttonRemove.addActionListener(new ButtonActionListener());
+        buttonComplete.addActionListener(new ButtonActionListener());
     }
 
     public int getCurrentlyHighlighted() {
@@ -76,23 +75,24 @@ public class ToDoGUI extends Meth {
         @Override
         public void mouseEntered(MouseEvent e) {
             final Object source = e.getSource();
+            timer.stop();
             if (source.equals(buttonSwitch)) {
-                customOut("hovering over switch");
+                customOut(outLabel, "hovering over switch");
 
             } else if (source.equals(buttonUser)) {
-                customOut("hovering over user");
+                customOut(outLabel, "hovering over user");
 
             } else if (source.equals(buttonComplete)) {
-                customOut("hovering over complete");
+                customOut(outLabel, "hovering over complete");
 
             } else if (source.equals(buttonAdd)) {
-                customOut("hovering over add");
+                customOut(outLabel, "hovering over add");
 
             } else if (source.equals(buttonRemove)) {
-                customOut("hovering over remove");
+                customOut(outLabel, "hovering over remove");
 
             } else {
-                customOut("huh?");
+                customOut(outLabel, "huh?");
             }
         }
 
@@ -112,13 +112,13 @@ public class ToDoGUI extends Meth {
             } else if (source.equals(buttonUser)) {
 
             } else if (source.equals(buttonComplete)) {
-
+                completeTaskGUI(outLabel, currentList, currentlyHighlighted);
             } else if (source.equals(buttonAdd)) {
-
+                addTaskGUI(outLabel, currentList, "DUMMY TASK", currentlyHighlighted);
             } else if (source.equals(buttonRemove)) {
-
+                remTaskGUI(outLabel, currentList, currentlyHighlighted);
             }
-
+            listTasks(currentList, listArea);
         }
     }
 
@@ -137,9 +137,17 @@ public class ToDoGUI extends Meth {
             } else if (keyCode == KeyEvent.VK_DOWN) {
                 if (currentlyHighlighted != currentList.size() - 1)
                     setCurrentlyHighlighted(++currentlyHighlighted);
+            } else if (keyCode == KeyEvent.VK_R) {
+                remTaskGUI(outLabel, currentList, currentlyHighlighted);
+            } else if (keyCode == KeyEvent.VK_C) {
+                System.out.println("bement");
+                completeTaskGUI(outLabel, currentList, currentlyHighlighted);
+            } else if (e.isControlDown() && e.getKeyChar() != 'n' && e.getKeyCode() == 78) {
+                addTaskGUI(outLabel, currentList, "SHORTCUT DUMMY", currentlyHighlighted);
             }
+            listTasks(currentList, listArea);
             listArea.getHighlighter().removeAllHighlights();
-            highlight(currentlyHighlighted);
+            highlight(listArea, currentlyHighlighted);
             System.out.println(currentlyHighlighted);
         }
 
@@ -147,40 +155,6 @@ public class ToDoGUI extends Meth {
         public void keyReleased(KeyEvent e) {
 
         }
-    }
-
-    public void customOut(String message) {
-        outLabel.setText(message);
-        timer = new Timer(2000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resetOutMessage();
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
-    }
-
-    private void highlight(int index) {
-        try {
-            int startIndex = listArea.getLineStartOffset(index);
-            int endIndex = listArea.getLineEndOffset(index);
-//            String colour = (String) cbox.getSelectedItem();
-            painter = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
-            listArea.getHighlighter().addHighlight(startIndex, endIndex, painter);
-
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void resetOutMessage() {
-        resetOutMessage("all is fine");
-    }
-
-    private void resetOutMessage(String s) {
-        outLabel.setText(s);
     }
 
     public static void main(String[] args) {

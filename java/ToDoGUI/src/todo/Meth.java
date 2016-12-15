@@ -1,6 +1,12 @@
 package todo;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,10 +19,13 @@ public abstract class Meth extends JFrame {
     public static String customListName = "default";
     public static String sessionUserName = "default";
     public static ArrayList<String> tempStore = new ArrayList<String>();
-    public static TaskList<Task> currentList;
+    public static TaskList currentList;
+    public int currentlyHighlighted = 0;
+    static Timer timer;
+    Highlighter.HighlightPainter painter;
 
 
-    public static void readByLine(File inputfile, TaskList<Task> current) {
+    public static void readByLine(File inputfile, TaskList current) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputfile));
             String tempLine = reader.readLine();
@@ -73,17 +82,42 @@ public abstract class Meth extends JFrame {
 
     }
 
-    public static TaskList<Task> createTasklist(String title, String owner) {
-        TaskList<Task> newList = new TaskList<>(title, owner);
+    public static TaskList createTasklist(String title, String owner) {
+        TaskList newList = new TaskList(title, owner);
         return newList;
     }
 
-    public static TaskList<Task> addTask(TaskList current, String taskSub) {
+    public static TaskList addTask(TaskList current, String taskSub) {
         current.add(new Task(taskSub));
         return current;
     }
 
-    public static TaskList<Task> remTask(TaskList current, String index) {
+    public static TaskList addTaskGUI(JLabel label, TaskList current, String taskSub, int selected) {
+        if (!current.isEmpty()) {
+            current.add(selected + 1, new Task(taskSub));
+        } else {
+            current.add(new Task(taskSub));
+
+        }
+        customOut(label, "New Task created!");
+        return current;
+    }
+
+
+    public static TaskList remTaskGUI(JLabel label, TaskList current, int index) {
+        try {
+            current.remove(index);
+        } catch (IndexOutOfBoundsException e) {
+            customOut(label, "Unable to remove, index out of bounds");
+            return current;
+        }
+        customOut(label, "Task removed!");
+
+        return current;
+    }
+
+
+    public static TaskList remTask(TaskList current, String index) {
         if (index != null) {
             try {
                 int temp = Integer.parseInt(index);
@@ -99,7 +133,18 @@ public abstract class Meth extends JFrame {
         return current;
     }
 
-    public static TaskList<Task> completeTask(TaskList<Task> current, String index) {
+    public static TaskList completeTaskGUI(JLabel label, TaskList current, int index) {
+        Task tempTask = current.get(index);
+        if (!tempTask.isCompleted()) {
+            tempTask.setCompleted(true);
+        } else {
+            tempTask.setCompleted(false);
+        }
+        customOut(label, "Task completed!");
+        return current;
+    }
+
+    public static TaskList completeTask(TaskList current, String index) {
         try {
             int temp = Integer.parseInt(index);
             Task tempTask = current.get(temp - 1);
@@ -116,7 +161,8 @@ public abstract class Meth extends JFrame {
         return current;
     }
 
-    public static void listTasks(TaskList<Task> current) {
+
+    public static void listTasks(TaskList current) {
         final String listTaskFormat = "%d - [%c] %s\n";
         char[] compArr = new char[]{' ', 'x'};
         char comp;
@@ -131,7 +177,7 @@ public abstract class Meth extends JFrame {
         }
     }
 
-    public static ArrayList<String> storeList(TaskList<Task> current, ArrayList<String> tempStore) {
+    public static ArrayList<String> storeList(TaskList current, ArrayList<String> tempStore) {
         char[] compArr = new char[]{'0', '1'};
         char comp;
         tempStore.clear();
@@ -211,27 +257,65 @@ public abstract class Meth extends JFrame {
         return sessionUserName;
     }
 
-    public static void remList(TaskList<Task> currentList) { //UNDER CONSTRUCTION
+    public static void remList(TaskList currentList) { //UNDER CONSTRUCTION
         file.delete();
         System.out.printf("List %s was removed! (or was it? %b)\n", currentList.title, file.delete());
     }
 
-    public void listTasks(TaskList<Task> current, JTextArea area) {
+    public void listTasks(TaskList current, JTextArea area) {
         final String listTaskFormat = "%d - [%c] %s\n";
         char[] compArr = new char[]{' ', 'x'};
         char comp;
+        String toArea = "";
         if (current.isEmpty()) {
-            System.out.println("No todos for today! :)");
+            toArea += "No todos for today! :)\nAdd some using the buttons to the side,\nor with Ctrl+n";
+            area.setText(toArea);
         } else {
-            String toArea = "";
             for (Task t : current) {
                 comp = (t.isCompleted()) ? compArr[1] : compArr[0];
                 toArea += String.format(listTaskFormat, current.indexOf(t) + 1, comp, t.getTaskDesc());
             }
             area.setText(toArea);
+            highlight(area, currentlyHighlighted);
         }
 
     }
+
+    void highlight(JTextArea listArea, int index) {
+        if (!currentList.isEmpty())
+            try {
+                int startIndex = listArea.getLineStartOffset(index);
+                int endIndex = listArea.getLineEndOffset(index);
+//            String colour = (String) cbox.getSelectedItem();
+                painter = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
+                listArea.getHighlighter().addHighlight(startIndex, endIndex, painter);
+
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+    public static void customOut(JLabel label, String message) {
+        label.setText(message);
+        timer = new Timer(2000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resetOutMessage(label);
+            }
+        });
+        timer.setRepeats(false);
+    }
+
+    private static void resetOutMessage(JLabel label) {
+        resetOutMessage(label, "all is fine");
+    }
+
+    private static void resetOutMessage(JLabel label, String s) {
+        label.setText(s);
+    }
+
+
 }
 
 
