@@ -24,6 +24,7 @@ public class ToDoGUI extends Meth {
     private JPanel mainPanel;
     private JButton buttonAdd;
     private JButton buttonRemove;
+    private JScrollBar scrollBar1;
     private Font legjobb = new Font("Comic Sans MS", Font.PLAIN, 24);
 
     private ToDoGUI() {
