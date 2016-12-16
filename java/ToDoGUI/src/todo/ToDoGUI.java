@@ -10,6 +10,7 @@ import java.io.File;
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 public class ToDoGUI extends Meth {
+    private JScrollPane scroll;
     private JFrame frame;
     private JPanel controlPanel, contentPane;
     private JButton buttonUser, buttonSwitch, buttonComplete;
@@ -24,7 +25,6 @@ public class ToDoGUI extends Meth {
     private JPanel mainPanel;
     private JButton buttonAdd;
     private JButton buttonRemove;
-    private JScrollBar scrollBar1;
     private Font legjobb = new Font("Comic Sans MS", Font.PLAIN, 24);
 
     private ToDoGUI() {
@@ -38,18 +38,25 @@ public class ToDoGUI extends Meth {
         this.setContentPane(contentPane);
         menu.setFont(legjobb);
         this.setJMenuBar(bar);
+        listArea = new JTextArea(10, 20);
+        listArea.setFont(legjobb);
         listArea.addKeyListener(new SelectionKeyListener());
         listArea.setFocusable(true);
         bar.add(menu);
         menu.add(item);
         listArea.setLineWrap(false);
         listArea.setEditable(false);
+        listArea.setAutoscrolls(true);
+        scroll = new JScrollPane(listArea);
+        scroll.setAutoscrolls(true);
+        listPanel.add(scroll, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.PAGE_END, 1, new Insets(0, 0, 0, 0), 0, 0));
         this.setVisible(true);
         currentList = createTasklist("DEFAULT1", "DEFAULT2"); //to be implemented
         readByLine(file, currentList);
         listTasks(currentList, listArea);
         customOut(outLabel, "WHAT'S GOING ON");
         highlight(listArea, currentlyHighlighted);
+
         this.pack();
         buttonSwitch.addMouseListener(new ControlListener());
         buttonUser.addMouseListener(new ControlListener());
@@ -70,6 +77,7 @@ public class ToDoGUI extends Meth {
     public void setCurrentlyHighlighted(int currentlyHighlighted) {
         this.currentlyHighlighted = currentlyHighlighted;
     }
+
 
     private class ControlListener extends MouseAdapter {
 
@@ -118,6 +126,9 @@ public class ToDoGUI extends Meth {
                 addTaskGUI(outLabel, currentList, "DUMMY TASK", currentlyHighlighted);
             } else if (source.equals(buttonRemove)) {
                 remTaskGUI(outLabel, currentList, currentlyHighlighted);
+                if (currentlyHighlighted == currentList.size()) {
+                    currentlyHighlighted--;
+                }
             }
             listTasks(currentList, listArea);
         }

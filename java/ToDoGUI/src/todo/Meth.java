@@ -289,6 +289,7 @@ public abstract class Meth extends JFrame {
 //            String colour = (String) cbox.getSelectedItem();
                 painter = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
                 listArea.getHighlighter().addHighlight(startIndex, endIndex, painter);
+                listArea.setCaretPosition(endIndex);
 
             } catch (BadLocationException e) {
                 e.printStackTrace();
