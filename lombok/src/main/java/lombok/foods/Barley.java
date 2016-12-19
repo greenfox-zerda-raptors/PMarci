@@ -1,10 +1,14 @@
 package lombok.foods;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.joda.time.LocalDate;
 
 /**
  * Created by kicsen on 2016. 12. 12..
  */
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Barley extends AbstractHorseFood {
     protected Barley(Long weight, Float qualityMultiplier, LocalDate expirationDate) {
         super("Barley", weight, Long.valueOf(weight.longValue() * 5L), qualityMultiplier, expirationDate);
@@ -14,31 +18,31 @@ public class Barley extends AbstractHorseFood {
         return new Barley.BarleyBuilder();
     }
 
-    public String toString() {
-        return "Barley(super=" + super.toString() + ")";
-    }
+//    public String toString() {
+//        return "Barley(super=" + super.toString() + ")";
+//    }
 
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        } else if (!(o instanceof Barley)) {
-            return false;
-        } else {
-            Barley other = (Barley) o;
-            return !other.canEqual(this) ? false : super.equals(o);
-        }
-    }
+//    public boolean equals(Object o) {
+//        if (o == this) {
+//            return true;
+//        } else if (!(o instanceof Barley)) {
+//            return false;
+//        } else {
+//            Barley other = (Barley) o;
+//            return !other.canEqual(this) ? false : super.equals(o);
+//        }
+//    }
 
     protected boolean canEqual(Object other) {
         return other instanceof Barley;
     }
 
-    public int hashCode() {
-        boolean PRIME = true;
-        byte result = 1;
-        int result1 = result * 59 + super.hashCode();
-        return result1;
-    }
+//    public int hashCode() {
+//        boolean PRIME = true;
+//        byte result = 1;
+//        int result1 = result * 59 + super.hashCode();
+//        return result1;
+//    }
 
     public static class BarleyBuilder {
         private Long weight;
@@ -67,8 +71,8 @@ public class Barley extends AbstractHorseFood {
             return new Barley(this.weight, this.qualityMultiplier, this.expirationDate);
         }
 
-        public String toString() {
-            return "Barley.BarleyBuilder(weight=" + this.weight + ", qualityMultiplier=" + this.qualityMultiplier + ", expirationDate=" + this.expirationDate + ")";
-        }
+//        public String toString() {
+//            return "Barley.BarleyBuilder(weight=" + this.weight + ", qualityMultiplier=" + this.qualityMultiplier + ", expirationDate=" + this.expirationDate + ")";
+//        }
     }
 }

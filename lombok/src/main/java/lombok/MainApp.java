@@ -43,10 +43,10 @@ public class MainApp {
         }
         log.info(cheese.toString());
 
-        log.info("Initial animal states:");
-        for (Animal animal : animals) {
-            animal.logOwnInfo();
-        }
+//        log.info("Initial animal states:");
+//        for (Animal animal : animals) {
+//            animal.logOwnInfo();
+//        }
 
         log.info("Random feeding ...");
         for (int i = 0; i < 10; i++) {
