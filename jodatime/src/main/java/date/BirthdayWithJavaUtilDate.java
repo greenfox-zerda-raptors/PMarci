@@ -13,8 +13,7 @@ public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> 
     public Date parseDate(String str) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date parsedDate = dateFormat.parse(str);
-            return parsedDate;
+            return dateFormat.parse(str);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -43,7 +42,6 @@ public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> 
         birthCal.setTime(birthday);
         int thisYear = todayCal.getTime().getYear();
         int birthYear = birthday.getYear();
-        // TODO - return how many years age the input date 'birthday' was
         if (thisYear > birthYear) {
             if ((todayCal.get(Calendar.DAY_OF_YEAR) > birthCal.get(Calendar.DAY_OF_YEAR))) {
                 return thisYear - birthYear;
@@ -52,14 +50,24 @@ public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> 
     }
 
     @Override
-    public int calculateDaysToNextAnniversary(Date date) {
-        Calendar todayCal = Calendar.getInstance();
-        Calendar dateCal = new GregorianCalendar();
-        dateCal.setTime(date);
-        System.out.println(dateCal.compareTo(todayCal));
-
-        // TODO - the number of days remaining to the next anniversary of 'date' (e.g. if tomorrow, return 1)
-        return -1;
+    public int calculateDaysToNextAnniversary(Date input) {
+        GregorianCalendar todayCal = new GregorianCalendar();
+        GregorianCalendar inputCal = new GregorianCalendar();
+        inputCal.setTime(input);
+        int inputDayNr = inputCal.get(Calendar.DAY_OF_YEAR);
+        int todayDayNr = todayCal.get(Calendar.DAY_OF_YEAR);
+        Date todayDate = todayCal.getTime();
+        Date inputDate = inputCal.getTime();
+        int numberOfDaysThisYear = todayCal.getActualMaximum(Calendar.DAY_OF_YEAR);
+        int numberOfDaysInInputYear = inputCal.getActualMaximum(Calendar.DAY_OF_YEAR);
+        if (numberOfDaysInInputYear - 366 + inputDayNr >= numberOfDaysThisYear - 366 + todayDayNr) {
+            todayDate.setYear(inputDate.getYear() + 1);
+            todayDayNr = todayCal.get(Calendar.DAY_OF_YEAR);
+            System.out.println("inside if");
+            return numberOfDaysThisYear - inputDayNr + todayDayNr;
+        } else {
+            return (todayDayNr - inputDayNr);
+        }
     }
 
     public static void main(String[] args) {
@@ -67,19 +75,20 @@ public final class BirthdayWithJavaUtilDate implements BirthdayCalculator<Date> 
     }
 
     private void run() {
+        while (true) {
+            print("Birthday with java.util.Date.");
+            String birthdayStr = readInput("What day were you born (yyyy-mm-dd)?");
 
-        print("Birthday with java.util.Date.");
-        String birthdayStr = readInput("What day were you born (yyyy-mm-dd)?");
+            Date birthdayDate = parseDate(birthdayStr);
+            print("Your birthday: " + printMonthAndDay(birthdayDate));
 
-        Date birthdayDate = parseDate(birthdayStr);
-        print("Your birthday: " + printMonthAndDay(birthdayDate));
-
-        if (isAnniversaryToday(birthdayDate)) {
-            int ageInYears = calculateAgeInYears(birthdayDate);
-            print("Congratulations! Today is your " + ageInYears + "th birthday!");
-        } else {
-            int daysLeft = calculateDaysToNextAnniversary(birthdayDate);
-            print("You have to wait only " + daysLeft + " days for your next birthday.");
+            if (false/*isAnniversaryToday(birthdayDate)*/) {
+                int ageInYears = calculateAgeInYears(birthdayDate);
+                print("Congratulations! Today is your " + ageInYears + "th birthday!");
+            } else {
+                int daysLeft = calculateDaysToNextAnniversary(birthdayDate);
+                print("You have to wait only " + daysLeft + " days for your next birthday.");
+            }
         }
     }
 

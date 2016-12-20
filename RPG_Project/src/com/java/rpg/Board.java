@@ -36,7 +36,7 @@ class Board extends JPanel {
         giveKey(objectsPermaList);
         objectsPermaList.add(theHero);//important to add last
         for (GameObject gameObject : objectsPermaList) {
-            presentObjectsMap.put(gameObject.getObjectID(), (Character) gameObject);
+            presentObjectsMap.put(gameObject.getObjectID(), (Character) gameObject); //TODO when enemy dead, setenemystoodon(null)
         }
         updateObjectsToBeDrawn();
     }
@@ -164,7 +164,7 @@ class Board extends JPanel {
 
     private ArrayList<Character> generateEnemies() {
         Random random = new Random();
-        int number = Math.min((3 + random.nextInt(3)), area.getNumberOfZeros(Area.areaMatrix) - 2);
+        int number = Math.min((10 + random.nextInt(3)), area.getNumberOfZeros(Area.areaMatrix) - 2);
         LinkedHashSet<GridPoint> validGridPoints = new LinkedHashSet<>();
         ArrayList<Character> enemies = new ArrayList<>();
         while (validGridPoints.size() < number) {

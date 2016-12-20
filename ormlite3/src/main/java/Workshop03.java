@@ -42,6 +42,8 @@ public class Workshop03 {
         PreparedQuery<Account> preparedQuery = accountQB.prepare();
         List<Account> accList = accountDao.query(preparedQuery);
         for (Account a : accList) {
+
+
             System.out.println(a.toString());
         }
     }

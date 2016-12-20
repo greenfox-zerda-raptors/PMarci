@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -20,8 +21,9 @@ public abstract class Meth extends JFrame {
     public static String sessionUserName = "default";
     public static ArrayList<String> tempStore = new ArrayList<String>();
     public static TaskList currentList;
+    private static ArrayList<String> listOfLists;
     public int currentlyHighlighted = 0;
-    static Timer timer;
+    static javax.swing.Timer timer;
     Highlighter.HighlightPainter painter;
 
 
@@ -33,7 +35,7 @@ public abstract class Meth extends JFrame {
 
             while (tempLine != null) {
                 splitLine = tempLine.split(";", 0);
-                current.add(new Task(splitLine[1], Integer.parseInt(splitLine[0])));
+                current.add(new Task(splitLine[1], Integer.parseInt(splitLine[0]), current.title));
                 tempLine = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -113,6 +115,7 @@ public abstract class Meth extends JFrame {
         }
         customOut(label, "Task removed!");
 
+
         return current;
     }
 
@@ -137,10 +140,13 @@ public abstract class Meth extends JFrame {
         Task tempTask = current.get(index);
         if (!tempTask.isCompleted()) {
             tempTask.setCompleted(true);
+            customOut(label, "Task completed!");
+
         } else {
             tempTask.setCompleted(false);
+            customOut(label, "Task reinstated!");
+
         }
-        customOut(label, "Task completed!");
         return current;
     }
 
@@ -276,13 +282,22 @@ public abstract class Meth extends JFrame {
                 toArea += String.format(listTaskFormat, current.indexOf(t) + 1, comp, t.getTaskDesc());
             }
             area.setText(toArea);
-            highlight(area, currentlyHighlighted);
+            highlight(currentList, area, currentlyHighlighted);
         }
 
     }
 
-    void highlight(JTextArea listArea, int index) {
-        if (!currentList.isEmpty())
+    void listLists(JTextArea listArea, List<TaskList> list) {
+        String toArea = "";
+        for (TaskList tl : list) {
+            toArea += tl.toString() + "\n";
+        }
+        listArea.setText(toArea);
+        highlight(list, listArea, 0);
+    }
+
+    void highlight(List inputlist, JTextArea listArea, int index) {
+        if (!inputlist.isEmpty())
             try {
                 int startIndex = listArea.getLineStartOffset(index);
                 int endIndex = listArea.getLineEndOffset(index);

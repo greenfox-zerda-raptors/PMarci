@@ -1,9 +1,20 @@
 package todo;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by posam on 2016-11-25.
@@ -25,9 +36,13 @@ public class ToDoGUI extends Meth {
     private JPanel mainPanel;
     private JButton buttonAdd;
     private JButton buttonRemove;
+    private static ConnectionSource connectionSource;
+    private static Dao<TaskList, String> listDao;
+    private static Dao<Task, String> taskDao;
     private Font legjobb = new Font("Comic Sans MS", Font.PLAIN, 24);
 
     private ToDoGUI() {
+
         String dirPath = System.getProperty("user.dir");
         File dir = new File(dirPath);
         File file = new File(dir + "\\" + "sample.csv");
@@ -52,11 +67,16 @@ public class ToDoGUI extends Meth {
         listPanel.add(scroll, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.PAGE_END, 1, new Insets(0, 0, 0, 0), 0, 0));
         this.setVisible(true);
         currentList = createTasklist("DEFAULT1", "DEFAULT2"); //to be implemented
+        try {
+            setUpConnection("todo");
+            initializeTestTables();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         readByLine(file, currentList);
         listTasks(currentList, listArea);
         customOut(outLabel, "WHAT'S GOING ON");
-        highlight(listArea, currentlyHighlighted);
-
+        highlight(currentList, listArea, currentlyHighlighted);
         this.pack();
         buttonSwitch.addMouseListener(new ControlListener());
         buttonUser.addMouseListener(new ControlListener());
@@ -117,7 +137,13 @@ public class ToDoGUI extends Meth {
         public void actionPerformed(ActionEvent e) {
             final Object source = e.getSource();
             if (source.equals(buttonSwitch)) {
+                try {
+                    listLists(listArea, testPull(listArea));
 
+                    return;
+                } catch (SQLException e2) {
+                    e2.printStackTrace();
+                }
             } else if (source.equals(buttonUser)) {
 
             } else if (source.equals(buttonComplete)) {
@@ -151,6 +177,9 @@ public class ToDoGUI extends Meth {
                     setCurrentlyHighlighted(++currentlyHighlighted);
             } else if (keyCode == KeyEvent.VK_R) {
                 remTaskGUI(outLabel, currentList, currentlyHighlighted);
+                if (currentlyHighlighted == currentList.size()) {
+                    currentlyHighlighted--;
+                }
             } else if (keyCode == KeyEvent.VK_C) {
                 System.out.println("bement");
                 completeTaskGUI(outLabel, currentList, currentlyHighlighted);
@@ -159,7 +188,7 @@ public class ToDoGUI extends Meth {
             }
             listTasks(currentList, listArea);
             listArea.getHighlighter().removeAllHighlights();
-            highlight(listArea, currentlyHighlighted);
+            highlight(currentList, listArea, currentlyHighlighted);
             System.out.println(currentlyHighlighted);
         }
 
@@ -169,15 +198,61 @@ public class ToDoGUI extends Meth {
         }
     }
 
-    public static void main(String[] args) {
+    private void setUpConnection(String tablename) throws SQLException {
+        String databaseUrl = "jdbc:mysql://localhost:3306/" + tablename + "?user=root&password=admin1234"; //TODO implement connection settings
+        connectionSource = new JdbcConnectionSource(databaseUrl);
+        System.out.println("setting up connection");
+
+        System.out.println(connectionSource.isOpen(databaseUrl));
+    }
+
+    private void initializeTestTables() throws SQLException {
+        TableUtils.dropTable(connectionSource, TaskList.class, true);
+        String[] tableNames = new String[]{"test1.csv", "test2.csv"};
+        ArrayList<TaskList> listofTL = new ArrayList<>();
+        for (String s : tableNames) {
+            File file = new File(dir + "\\" + s);
+            TaskList temp = new TaskList(s, "DEFAULTUSER");
+            readByLine(file, temp);
+            listofTL.add(temp);
+        }
+        TableUtils.createTableIfNotExists(connectionSource, TaskList.class);
+        listDao = DaoManager.createDao(connectionSource, TaskList.class);
+        for (TaskList tl : listofTL) {
+            createListTableIfNotExists(listDao, tl, tl.title);
+
+        }
+    }
+
+    private static void createListTableIfNotExists(Dao<TaskList, String> listDao, TaskList tl, String name) throws SQLException {
+        if (listDao.queryForId(tl.getTitle()) == null) {
+            listDao.create(tl);
+        }
+    }
+
+    private static void createTaskTableIfNotExists(Dao<Task, String> taskDao, Task task, String name) throws SQLException {
+        if (taskDao.queryForId(task.getTaskDesc()) == null) {
+            taskDao.create(task);
+        }
+    }
+
+    private static List testPull(JTextArea listArea) throws SQLException {
+        QueryBuilder<TaskList, String> tasklistQB = listDao.queryBuilder();
+        tasklistQB.orderBy(TaskList.TITLE_FIELD_NAME, true);
+        PreparedQuery<TaskList> preparedQuery = tasklistQB.prepare();
+        List<TaskList> tlList = listDao.query(preparedQuery);
+        return tlList;
+    }
+
+    public static void main(String[] args) throws SQLException {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new ToDoGUI();
             }
         });
-
     }
+
 
 }
 

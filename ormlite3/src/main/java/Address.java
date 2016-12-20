@@ -12,6 +12,7 @@ public class Address {
     private static final String POSTCODE_FIELD_NAME = "postCode";
     private static final String NAME_FIELD_NAME = "name";
     private static final String COUNTRY_FIELD_NAME = "country";
+    private static final String ID_FIELD_NAME = "id";
 
     @DatabaseField(columnName = STREET_FIELD_NAME)
     private String street;
@@ -21,8 +22,10 @@ public class Address {
     private int postCode;
     @DatabaseField(columnName = COUNTRY_FIELD_NAME)
     private String country;
-    @DatabaseField(id = true, columnName = NAME_FIELD_NAME)
+    @DatabaseField(columnName = NAME_FIELD_NAME)
     private String name;
+    @DatabaseField(generatedId = true, columnName = ID_FIELD_NAME)
+    private int id;
 
     public Address(String street, String city, int postCode, String country, String name) {
         this.street = street;
