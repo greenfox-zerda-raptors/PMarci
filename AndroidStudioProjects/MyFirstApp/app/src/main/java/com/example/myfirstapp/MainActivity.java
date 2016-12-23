@@ -13,16 +13,15 @@ import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    public ArrayList<String> myStringArray = new ArrayList<>();
+    public ArrayList<Message> myStringArray = new ArrayList<>();
     public ListView listView;
-    public ArrayAdapter<String> adapter;
+    public ArrayAdapter<Message> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adapter = new ArrayAdapter<String>(this,
-        android.R.layout.simple_list_item_1, myStringArray);
+        adapter = new MessageAdapter(this, myStringArray);
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
     }
@@ -37,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void addToList(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
+        String text = editText.getText().toString();
+        Message message = new Message(text, "DEFAULT");
         adapter.add(message);
     }
 }
