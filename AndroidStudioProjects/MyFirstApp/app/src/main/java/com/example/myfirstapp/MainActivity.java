@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    public static ArrayList<String> myStringArray;
+    public static ArrayList<String> myStringArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

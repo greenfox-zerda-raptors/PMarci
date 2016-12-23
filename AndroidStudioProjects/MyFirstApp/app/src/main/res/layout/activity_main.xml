@@ -15,15 +15,17 @@
             android:id="@+id/linLayout">
         <EditText android:id="@+id/edit_message"
             android:hint="@string/edit_message"
-            android:layout_width="311dp"
+            android:layout_width="0dp"
+            android:layout_weight="3"
             android:layout_height="wrap_content"
             android:singleLine="true" />
 
-        <Button
-            android:layout_width="61dp"
-            android:layout_height="wrap_content"
-            android:text="@string/button_send"
-            android:onClick="sendMessage" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="@string/button_send"
+                android:onClick="sendMessage" />
         </LinearLayout>
     <ListView
         android:id="@+id/listview"
