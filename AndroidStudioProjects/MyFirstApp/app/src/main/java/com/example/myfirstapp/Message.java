@@ -7,7 +7,11 @@ package com.example.myfirstapp;
 class Message {
     private String body;
     private String username;
-    private String created_at = "1995/05/24";
+    private String created_at;
+
+    public Message() {
+    }
+
 
     public String getBody() {
         return body;
