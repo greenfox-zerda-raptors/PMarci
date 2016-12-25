@@ -27,7 +27,7 @@ public class Primebetter {
                     break;
                 }
                 ArrayList<Integer> o = factor(input);
-                if ( o.size() == 1) {
+                if (o.size() == 1) {
                     System.out.printf("\"%d\" is a prime number \n", input);
                 } else {
                     System.out.printf("\"%d\" has the following factors: ", input);
@@ -41,22 +41,22 @@ public class Primebetter {
                     HashSet<Integer> uniqueo = new HashSet<Integer>(o); //magic
                     for (int i = 0; i < uniqueo.size(); i++) {
                         System.out.print(uniqueo.toArray()[i] + " ");
-                        String monthString;
+                        String numString;
                         switch (Collections.frequency(o, uniqueo.toArray()[i])) {
                             case 1:
-                                monthString = "once";
+                                numString = "once";
                                 break;
                             case 2:
-                                monthString = "twice";
+                                numString = "twice";
                                 break;
                             case 3:
-                                monthString = "thrice";
+                                numString = "thrice";
                                 break;
                             default:
-                                monthString = String.format("%d times", Collections.frequency(o, o.get(i)));
+                                numString = String.format("%d times", Collections.frequency(o, o.get(i)));
                                 break;
                         }
-                        System.out.print(monthString + "\n");
+                        System.out.print(numString + "\n");
                     }
                 }
             } catch (InputMismatchException e) {

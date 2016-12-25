@@ -164,7 +164,7 @@ class Board extends JPanel {
 
     private ArrayList<Character> generateEnemies() {
         Random random = new Random();
-        int number = Math.min((10 + random.nextInt(3)), area.getNumberOfZeros(Area.areaMatrix) - 2);
+        int number = Math.min((100 + random.nextInt(3)), area.getNumberOfZeros(Area.areaMatrix) - 2);
         LinkedHashSet<GridPoint> validGridPoints = new LinkedHashSet<>();
         ArrayList<Character> enemies = new ArrayList<>();
         while (validGridPoints.size() < number) {

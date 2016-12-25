@@ -3,10 +3,13 @@ package com.example.myfirstapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
             .build();
         service = retrofit.create(ServiceInterface.class);
         getMessage(service);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        TextView.OnEditorActionListener enterListener = new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) && event == null) {
+                    addToList(findViewById(R.id.edit_message));
+                }
+                    return true;
+            }
+        };
+        editText.setOnEditorActionListener(enterListener);
     }
     @Override
     public void onPause() {
@@ -69,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void addToList(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String text = editText.getText().toString();
@@ -85,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getMessage(service);
+        editText.setText("");
     }
 
     public void getMessage(ServiceInterface service) {
