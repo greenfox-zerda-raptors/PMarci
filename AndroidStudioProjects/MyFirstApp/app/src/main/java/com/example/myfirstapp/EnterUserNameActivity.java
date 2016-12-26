@@ -35,14 +35,14 @@ public class EnterUserNameActivity extends AppCompatActivity {
 
     }
 
-    protected void setEntered(View view) {
+    public void setEntered(View view) {
         EditText usernameEntry = (EditText) findViewById(R.id.usernameEditText);
         String entered = usernameEntry.getText().toString();
         MainActivity.username = entered;
         SharedPreferences sharedPreferences = MainActivity.sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(getString(R.string.username), entered);
-        editor.commit();
+        editor.apply();
         MenuItem preview = MainActivity.menu.findItem(R.id.usernamePreview);
         preview.setTitle(entered);
         this.finish();

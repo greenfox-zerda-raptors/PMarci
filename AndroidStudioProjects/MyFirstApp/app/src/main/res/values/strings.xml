@@ -3,4 +3,7 @@
     <string name="edit_message">Enter a body</string>
     <string name="button_send">Send</string>
     <string name="username" />
+    <string name="changeusername">ChangeUserName</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="set">Set</string>
 </resources>

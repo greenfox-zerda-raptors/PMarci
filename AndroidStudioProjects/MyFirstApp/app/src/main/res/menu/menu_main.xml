@@ -11,7 +11,7 @@
         android:id="@+id/miCompose"
         android:icon="@drawable/ic_set_user"
         app:showAsAction="ifRoom"
-        android:title="ChangeUserName"
+        android:title="@string/changeusername"
         android:onClick="setUsername">
     </item>
 </menu>

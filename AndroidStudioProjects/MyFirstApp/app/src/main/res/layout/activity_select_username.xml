@@ -23,20 +23,16 @@
         <EditText
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="Enter Username"
+            android:hint="@string/enter_username"
             android:ems="10"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/usernameEditText"
             android:imeOptions="actionDone"
             android:layout_width="200dp" />
 
         <Button
-            android:text="Set"
+            android:text="@string/set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText"
-            android:layout_centerHorizontal="true"
             android:id="@+id/button"
             android:onClick="setEntered"
             android:layout_marginTop="10dp" />

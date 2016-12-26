@@ -26,7 +26,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     public ArrayList<Message> myMessageArray = new ArrayList<>();
     public ListView listView;
     public ArrayAdapter<Message> adapter;
@@ -93,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void setUsername(MenuItem menuItem) {
         Intent intent = new Intent(this, EnterUserNameActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-
         startActivity(intent);
     }
 
