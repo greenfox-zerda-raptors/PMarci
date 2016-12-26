@@ -13,9 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,7 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 
 public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -38,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
             listView.postDelayed(this, 1000);
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +70,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         listView.postDelayed(r, 1000);
     }
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+    public void setUsername(View view) {
+        Intent intent = new Intent(this, EnterUserNameActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+
         startActivity(intent);
     }
 
@@ -87,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void addToList(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String text = editText.getText().toString();
-        Message message = new Message(text, "WGTM");
+        Message message = new Message(text, R.string.username);
         service.postMessageCall(new MessageWrapper(message)).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
