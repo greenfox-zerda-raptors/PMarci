@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         TextView.OnEditorActionListener enterListener = new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if ((actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) && event == null) {
+                if (actionId == EditorInfo.IME_ACTION_SEND && event == null) {
                     addToList(findViewById(R.id.edit_message));
                 }
                     return true;

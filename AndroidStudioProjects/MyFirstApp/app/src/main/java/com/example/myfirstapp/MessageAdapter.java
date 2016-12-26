@@ -1,6 +1,7 @@
 package com.example.myfirstapp;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by posam on 2016-12-23.
@@ -19,6 +21,10 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         super(context, 0, messageArrayList);
     }
 
+    @Override
+    public @Nullable Message getItem(int position) {
+        return super.getItem(super.getCount() - position - 1);
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Message message = getItem(position);
