@@ -2,5 +2,5 @@
     <string name="app_name">RaptorChat</string>
     <string name="edit_message">Enter a body</string>
     <string name="button_send">Send</string>
-    <string name="username">WGTM</string>
+    <string name="username" />
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/usernamePreview"
+        android:title="@string/username"
+        app:showAsAction="ifRoom"
+        >
+    </item>
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/ic_set_user"
+        app:showAsAction="ifRoom"
+        android:title="ChangeUserName"
+        android:onClick="setUsername">
+    </item>
+</menu>
