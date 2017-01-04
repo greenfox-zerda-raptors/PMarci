@@ -33,9 +33,23 @@ public class PostsController {
     }
 
     @PostMapping("/add")
-    public String postSubmit(@ModelAttribute Post post) {
+    String postSubmit(@ModelAttribute Post post) {
         postRepository.save(post);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{postID}/upvote", method = RequestMethod.GET)
+    String upvote(Model model, @PathVariable("postID") Long postID) {
+        Post post = postRepository.findOne(postID).increment();
+        postRepository.save(post);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/{postID}/downvote", method = RequestMethod.GET)
+    String downvote(Model model, @PathVariable("postID") Long postID) {
+        Post post = postRepository.findOne(postID).decrement();
+        postRepository.save(post);
+        return "redirect:/posts";
     }
 //
 //    @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)

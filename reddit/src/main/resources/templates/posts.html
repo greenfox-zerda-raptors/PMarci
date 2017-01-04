@@ -8,7 +8,7 @@
 <p>Posts will be displayed here</p>
 <br/>
 <ul style="list-style: none">
-    <li th:each="post : ${posts}" th:object="${post}">
+    <li th:each="post : ${posts}">
         <span th:text="${post.id}"></span>
         <a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
         <a th:href="@{'posts/{id}/downvote' (id=${post.id})}">-</a>

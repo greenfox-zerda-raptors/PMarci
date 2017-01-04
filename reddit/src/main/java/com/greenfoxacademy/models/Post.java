@@ -22,7 +22,17 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-    String content;
-    int score;
+    public long id;
+    public String content;
+    public int score;
+
+    public Post increment() {
+        this.score++;
+        return this;
+    }
+
+    public Post decrement() {
+        this.score--;
+        return this;
+    }
 }
