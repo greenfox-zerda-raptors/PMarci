@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>TODO</title>
+</head>
+<body>
+<ul th:each="todo : ${todolist}">
+    <li th:text="${todo.title}">This is the todo description</li>
+</ul>
+</body>
+</html>
