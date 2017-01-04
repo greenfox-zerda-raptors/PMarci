@@ -5,7 +5,10 @@ import com.greenfoxacademy.services.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Created by posam on 2017-01-04.
@@ -33,7 +36,10 @@ public class PostsController {
     }
 
     @PostMapping("/add")
-    String postSubmit(@ModelAttribute Post post) {
+    String postSubmit(@ModelAttribute @Valid Post post, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add";
+        }
         postRepository.save(post);
         return "redirect:/";
     }

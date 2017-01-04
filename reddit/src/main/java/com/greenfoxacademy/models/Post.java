@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by posam on 2017-01-04.
@@ -23,6 +25,9 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long id;
+
+    @NotNull
+    @Size(min = 1, message = "Post body can''t be empty!")
     public String content;
     public int score;
 
