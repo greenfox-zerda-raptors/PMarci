@@ -5,7 +5,7 @@
     <title>RedditApp: Add new Post</title>
 </head>
 <body>
-<form action="#" th:action="@{/add}" th:object="${post}" method="post">
+<form action="#" th:action="@{/posts/add}" th:object="${post}" method="post">
     <p>Write a post below<br/><input type="text" th:field="*{content}"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>

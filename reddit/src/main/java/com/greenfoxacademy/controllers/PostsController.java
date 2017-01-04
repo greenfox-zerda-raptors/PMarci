@@ -35,7 +35,7 @@ public class PostsController {
     @PostMapping("/add")
     public String postSubmit(@ModelAttribute Post post) {
         postRepository.save(post);
-        return "redirect:/posts/";
+        return "redirect:/";
     }
 //
 //    @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)
