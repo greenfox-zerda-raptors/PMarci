@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>RedditApp: Posts</title>
+</head>
+<body>
+<p>Posts will be displayed here</p>
+<br/>
+<ul style="list-style: none">
+    <li th:each="post : ${posts}">
+        <span th:text="${post.id}"></span>
+        <a th:href="${post.id}" th:text="${post.content}"></a>
+        <span th:text="${post.score}"></span>
+    </li>
+</ul>
+<a href="/posts/add">Add a new post</a>
+</body>
+</html>

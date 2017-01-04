@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>RedditApp: Add new Post</title>
+</head>
+<body>
+<form action="#" th:action="@{/add}" th:object="${post}" method="post">
+    <p>Write a post below<br/><input type="text" th:field="*{content}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>
