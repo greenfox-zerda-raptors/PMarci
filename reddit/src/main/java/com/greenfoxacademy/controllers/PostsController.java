@@ -1,8 +1,6 @@
 package com.greenfoxacademy.controllers;
 
 import com.greenfoxacademy.models.Post;
-import com.greenfoxacademy.services.PostServices;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +19,6 @@ import static com.greenfoxacademy.services.PostServices.*;
 @RequestMapping("/posts")
 public class PostsController {
 
-    @Autowired
-    PostServices postServices;
 
     @RequestMapping(method = RequestMethod.GET)
     String listPosts(Model model) {

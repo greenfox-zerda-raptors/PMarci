@@ -22,7 +22,7 @@ public class PostServices {
     }
 
     public static void listService(Model model) {
-        model.addAttribute("posts", postRepository.findAll());
+        model.addAttribute("posts", postRepository.findTop10ByOrderByScoreDesc());
     }
 
     public static void addService(Model model) {
