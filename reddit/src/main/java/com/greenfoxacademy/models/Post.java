@@ -1,13 +1,12 @@
 package com.greenfoxacademy.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
 
 /**
  * Created by posam on 2017-01-04.
@@ -18,8 +17,6 @@ import javax.validation.constraints.Size;
 @Table(name = "posts")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Post {
 
     @Id
@@ -30,6 +27,15 @@ public class Post {
     @Size(min = 1, message = "Post body can''t be empty!")
     public String content;
     public int score;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    public Calendar created;
+
+    public String createdFormatted;
+
+    public Post() {
+        this.created = Calendar.getInstance();
+    }
 
     public Post increment() {
         this.score++;

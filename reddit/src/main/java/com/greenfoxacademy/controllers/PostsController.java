@@ -1,7 +1,7 @@
 package com.greenfoxacademy.controllers;
 
 import com.greenfoxacademy.models.Post;
-import com.greenfoxacademy.services.PostRepository;
+import com.greenfoxacademy.services.PostServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.greenfoxacademy.services.PostServices.*;
 
 /**
  * Created by posam on 2017-01-04.
@@ -20,46 +22,47 @@ import javax.validation.Valid;
 public class PostsController {
 
     @Autowired
-    PostRepository postRepository;
+    PostServices postServices;
 
     @RequestMapping(method = RequestMethod.GET)
     String listPosts(Model model) {
-        model.addAttribute("posts", postRepository.findAll());
+        listService(model);
         return "posts";
     }
 
     @GetMapping("/add")
     String add(Model model) {
-        model.addAttribute("post", new Post());
-
+        addService(model);
         return "add";
     }
 
     @PostMapping("/add")
     String postSubmit(@ModelAttribute @Valid Post post, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "add";
-        }
-        postRepository.save(post);
-        return "redirect:/";
+        return submitService(post, bindingResult);
     }
+
 
     @RequestMapping(value = "/{postID}/upvote", method = RequestMethod.GET)
     String upvote(Model model, @PathVariable("postID") Long postID) {
-        Post post = postRepository.findOne(postID).increment();
-        postRepository.save(post);
+        upvoteService(postID);
         return "redirect:/posts";
     }
 
     @RequestMapping(value = "/{postID}/downvote", method = RequestMethod.GET)
     String downvote(Model model, @PathVariable("postID") Long postID) {
-        Post post = postRepository.findOne(postID).decrement();
-        postRepository.save(post);
+        downvoteService(postID);
         return "redirect:/posts";
     }
+
+    @RequestMapping(value = "/deletthis")
+    String delet() {
+        deletService();
+        return "redirect:/posts";
+    }
+
 //
 //    @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)
-//    String showPost(Model model, int postID) {
+//    String showPost(Model model, @PathVariable("postID") Long postID) {
 //    return null;
 //    }
 

@@ -14,8 +14,11 @@
         <span th:text="'| Score: ' + ${post.score}"></span>
         <a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
         <a th:href="@{'posts/{id}/downvote' (id=${post.id})}">-</a>
+        <span th:text="'| Created on: ' + ${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></span>
     </li>
 </ul>
 <a href="/posts/add">Add a new post</a>
+<br/>
+<a style="font-size: 52px" href="/posts/deletthis">BALEET</a>
 </body>
 </html>
