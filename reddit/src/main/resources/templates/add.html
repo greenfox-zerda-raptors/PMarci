@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8"/>
     <title>RedditApp: Add new Post</title>
+    <link rel="stylesheet" type="text/css" href="../bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../custom.css"/>
 </head>
 <body>
-<form action="#" th:action="@{/posts/add}" th:object="${post}" method="post">
-    <p>Write a post below<br/>
-        <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error.</span><br/>
-        <input autofocus="autofocus" type="text" th:field="*{content}"/></p>
-    <p><input type="submit" value="Submit"/></p>
+<form id="postform" class="form-horizontal" action="#" th:action="@{/posts/add}" th:object="${post}" method="post">
+    <p>
+    <h1 id="instruction">Write a post below</h1>
+    <span id="warning" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error.</span><br/>
+    <textarea class="form-control" rows="4" placeholder="Compose post..." autofocus="autofocus" type="text"
+              th:field="*{content}"></textarea></p>
+    <p><input class="btn btn-primary" type="submit" value="Submit"/></p>
 </form>
 </body>
 </html>

@@ -83,7 +83,7 @@ public class PostsController {
 
     @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)
     String showPost(Model model, @PathVariable("postID") Long postID) {
-    return null;
+        return null;
     }
 
     @RequestMapping("/1")

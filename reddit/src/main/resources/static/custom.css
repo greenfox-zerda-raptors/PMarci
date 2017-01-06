@@ -1,0 +1,67 @@
+body {
+    margin: 0px;
+    width: 100%;
+}
+
+#postform {
+    text-align: center;
+    margin: 50px auto;
+    width: 50%;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#instruction {
+    font-size: large;
+    margin-bottom: 0;
+}
+
+#warning {
+    color: #c8000f;
+    margin-bottom: 10px;
+}
+
+.table, .btncontainer {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+th.rightcolumn, td.rightcolumn {
+    text-align: right;
+}
+
+.datecolumn {
+    width: 120px;
+}
+
+.thincolumn {
+    width: 30px;
+}
+
+#sendbtn {
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    padding: 5px 30px 5px 30px;
+    margin: 0px 10px 0px 10px;
+    border: 2px solid #107a94;
+    color: #ffffff;
+    box-shadow: 0 0 3px hsl(203, 9%, 43%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.3));
+    background-color: #1fb7e0;
+    text-shadow: 0 0 3px rgba(102, 102, 102, 0.4);
+
+}
+
+#sendbtn:hover {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0));
+}
+
+#sendbtn:active {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0));
+}

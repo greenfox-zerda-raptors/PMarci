@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <title>RedditApp: Posts</title>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="custom.css"/>
 </head>
 <body>
 <p>Posts will be displayed here</p>
@@ -11,21 +12,21 @@
 <table class="table">
     <thead>
     <tr>
-        <th>PostID</th>
+        <th class="thincolumn">PostID</th>
         <th>Post</th>
-        <th>Score</th>
-        <th>Vote</th>
-        <th>Date</th>
+        <th class="rightcolumn thincolumn">Score</th>
+        <th class="rightcolumn thincolumn">Vote</th>
+        <th class="rightcolumn datecolumn">Date</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="post : ${page.getContent()}">
-        <td th:text="${post.id} +'.'"></td>
+        <td class="thincolumn" th:text="${post.id} +'.'"></td>
         <td><a th:href="@{'/posts/{id}' (id=${post.id})}" th:text="${post.content}"></a></td>
-        <td th:text="${post.score}"></td>
-        <td><a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
+        <td class="rightcolumn thincolumn" th:text="${post.score}"></td>
+        <td class="rightcolumn thincolumn"><a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
             <a th:href="@{'posts/{id}/downvote' (id=${post.id})}">-</a></td>
-        <td th:text="${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></td>
+        <td class="rightcolumn datecolumn" th:text="${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></td>
     </tr>
     </tbody>
 </table>
@@ -65,8 +66,9 @@
         </ul>
     </div>
 </div>
-<a href="/posts/add">Add a new post</a>
-<br/>
-<a style="font-size: 52px" href="/posts/deletthis">BALEET</a>
+<div class="btncontainer">
+    <input id="sendbtn" value="Add a new post" type="button"/>
+</div>
+<p><a style="font-size: 32px" href="/posts/deletthis">BALEET</a></p>
 </body>
 </html>
