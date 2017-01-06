@@ -3,6 +3,14 @@ body {
     width: 100%;
 }
 
+#title {
+    font-family: "Onyx", "Lucida Sans", serif;
+    font-size: 72px;
+    margin: 50px auto;
+    width: 50%;
+    text-align: center;
+}
+
 #postform {
     text-align: center;
     margin: 50px auto;
