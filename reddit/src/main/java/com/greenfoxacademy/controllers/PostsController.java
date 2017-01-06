@@ -5,8 +5,6 @@ import com.greenfoxacademy.models.Post;
 import com.greenfoxacademy.services.PostRepository;
 import com.greenfoxacademy.services.PostServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -36,9 +34,9 @@ public class PostsController {
     PostRepository postRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 10, page = 0) Pageable pageable) {
-        Page<Post> temp = postRepository.findAllByOrderByScoreDesc(new PageRequest(pageNr, 5));
-        model.addAttribute("posts", temp);
+    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 5, page = 0) Pageable pageable) {
+//        Page<Post> temp = postRepository.findAllByOrderByScoreDesc(new PageRequest(pageNr, 5));
+//        model.addAttribute("posts", temp);
         PageWrapper<Post> page = new PageWrapper<Post>(postRepository.findAllByOrderByScoreDesc(pageable), "posts");
         model.addAttribute("page", page);
 
@@ -72,9 +70,10 @@ public class PostsController {
     }
 
     @RequestMapping(value = "/{postID}/downvote", method = RequestMethod.GET)
-    String downvote(Model model, @PathVariable("postID") Long postID) {
+    String downvote(Model model, @PathVariable("postID") Long postID, final HttpServletRequest request) {
+        String referrer = request.getHeader("referer");
         postServices.downvoteService(postID);
-        return "redirect:/";
+        return "redirect:" + referrer;
     }
 
     @RequestMapping(value = "/deletthis")
