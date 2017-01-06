@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -35,14 +36,15 @@ public class PostsController {
     PostRepository postRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 10, page = 1) Pageable pageable) {
-        Page<Post> temp = postRepository.findAll(new PageRequest(pageNr, 5));
+    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 10, page = 0) Pageable pageable) {
+        Page<Post> temp = postRepository.findAllByOrderByScoreDesc(new PageRequest(pageNr, 5));
         model.addAttribute("posts", temp);
         PageWrapper<Post> page = new PageWrapper<Post>(postRepository.findAllByOrderByScoreDesc(pageable), "posts");
         model.addAttribute("page", page);
+
         this.current = page.getNumber();
 //        model.addAttribute("posts", postRepository.findAllByOrderByScoreDesc());
-        return "posts";
+        return "posts2";
     }
 
     @GetMapping("/add")
@@ -63,9 +65,11 @@ public class PostsController {
 
 
     @RequestMapping(value = "/{postID}/upvote", method = RequestMethod.GET)
-    String upvote(Model model, @PathVariable("postID") Long postID) {
+    String upvote(Model model, @PathVariable("postID") Long postID, final HttpServletRequest request) {
+        String referrer = request.getHeader("referer");
         postServices.upvoteService(postID);
-        return "redirect:/";
+
+        return "redirect:" + referrer;
     }
 
     @RequestMapping(value = "/{postID}/downvote", method = RequestMethod.GET)

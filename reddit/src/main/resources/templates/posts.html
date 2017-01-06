@@ -12,8 +12,8 @@
         <span th:text="${post.id} +'. '"></span>
         <a th:href="@{'/posts/{id}' (id=${post.id})}" th:text="${post.content}"></a>
         <span th:text="'| Score: ' + ${post.score}"></span>
-        <a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
-        <a th:href="@{'posts/{id}/downvote' (id=${post.id})}">-</a>
+        <a th:href="@{'/posts/{id}/upvote' (id=${post.id})}">+</a>
+        <a th:href="@{'/posts/{id}/downvote' (id=${post.id})}">-</a>
         <span th:text="'| Created on: ' + ${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></span>
     </li>
 </ul>
