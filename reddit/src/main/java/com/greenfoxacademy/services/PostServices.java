@@ -3,8 +3,6 @@ package com.greenfoxacademy.services;
 import com.greenfoxacademy.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 
 /**
  * Created by posam on 2017-01-05.
@@ -14,41 +12,29 @@ import org.springframework.validation.BindingResult;
 @Component
 public class PostServices {
 
-    private static PostRepository postRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @Autowired
     public PostServices(PostRepository postRepository) {
-        PostServices.postRepository = postRepository;
+        this.postRepository = postRepository;
     }
 
-    public static void listService(Model model) {
-        model.addAttribute("posts", postRepository.findTop10ByOrderByScoreDesc());
+    public void saveService(Post post) {
+        postRepository.save(post);
     }
 
-    public static void addService(Model model) {
-        model.addAttribute("post", new Post());
-    }
-
-    public static String submitService(Post post, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "add";
-        } else {
-            postRepository.save(post);
-            return "redirect:/";
-        }
-    }
-
-    public static void upvoteService(Long postID) {
+    public void upvoteService(Long postID) {
         Post post = postRepository.findOne(postID).increment();
         postRepository.save(post);
     }
 
-    public static void downvoteService(Long postID) {
+    public void downvoteService(Long postID) {
         Post post = postRepository.findOne(postID).decrement();
         postRepository.save(post);
     }
 
-    public static void deletService() {
+    public void deletService() {
         postRepository.deleteAll();
     }
 

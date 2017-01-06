@@ -31,8 +31,6 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar created;
 
-    public String createdFormatted;
-
     public Post() {
         this.created = Calendar.getInstance();
     }

@@ -1,6 +1,14 @@
 package com.greenfoxacademy.controllers;
 
+import com.greenfoxacademy.models.PageWrapper;
 import com.greenfoxacademy.models.Post;
+import com.greenfoxacademy.services.PostRepository;
+import com.greenfoxacademy.services.PostServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,51 +16,67 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import static com.greenfoxacademy.services.PostServices.*;
-
 /**
  * Created by posam on 2017-01-04.
  * WHAAAAAAAAAAAAAAAASSSSSUUUUUP
  */
 
+
 @Controller
 @RequestMapping("/posts")
 public class PostsController {
 
+    int current;
+
+    @Autowired
+    PostServices postServices;
+
+    @Autowired
+    PostRepository postRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    String listPosts(Model model) {
-        listService(model);
+    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 10, page = 1) Pageable pageable) {
+        Page<Post> temp = postRepository.findAll(new PageRequest(pageNr, 5));
+        model.addAttribute("posts", temp);
+        PageWrapper<Post> page = new PageWrapper<Post>(postRepository.findAllByOrderByScoreDesc(pageable), "posts");
+        model.addAttribute("page", page);
+        this.current = page.getNumber();
+//        model.addAttribute("posts", postRepository.findAllByOrderByScoreDesc());
         return "posts";
     }
 
     @GetMapping("/add")
     String add(Model model) {
-        addService(model);
+        model.addAttribute("post", new Post());
         return "add";
     }
 
     @PostMapping("/add")
     String postSubmit(@ModelAttribute @Valid Post post, BindingResult bindingResult) {
-        return submitService(post, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "add";
+        } else {
+            postServices.saveService(post);
+            return "redirect:/";
+        }
     }
 
 
     @RequestMapping(value = "/{postID}/upvote", method = RequestMethod.GET)
     String upvote(Model model, @PathVariable("postID") Long postID) {
-        upvoteService(postID);
-        return "redirect:/posts";
+        postServices.upvoteService(postID);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/{postID}/downvote", method = RequestMethod.GET)
     String downvote(Model model, @PathVariable("postID") Long postID) {
-        downvoteService(postID);
-        return "redirect:/posts";
+        postServices.downvoteService(postID);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/deletthis")
     String delet() {
-        deletService();
+        postServices.deletService();
         return "redirect:/posts";
     }
 

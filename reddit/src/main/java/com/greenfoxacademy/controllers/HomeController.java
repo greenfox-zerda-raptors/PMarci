@@ -15,7 +15,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     String index(Model model) {
-        model.addAttribute("message", "Welcome to Die");
+        model.addAttribute("page", "0");
         return "redirect:/posts";
     }
 }
