@@ -3,60 +3,68 @@
 <head>
     <meta charset="UTF-8"/>
     <title>RedditApp: Posts</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
 </head>
 <body>
 <p>Posts will be displayed here</p>
 <br/>
-<ul style="list-style: none">
-    <li th:each="post : ${posts}">
-        <span th:text="${post.id} +'. '"></span>
-        <a th:href="@{'/posts/{id}' (id=${post.id})}" th:text="${post.content}"></a>
-        <span th:text="'| Score: ' + ${post.score}"></span>
-        <a th:href="@{'/posts/{id}/upvote' (id=${post.id})}">+</a>
-        <a th:href="@{'/posts/{id}/downvote' (id=${post.id})}">-</a>
-        <span th:text="'| Created on: ' + ${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></span>
-    </li>
-</ul>
+<table class="table">
+    <thead>
+    <tr>
+        <th>PostID</th>
+        <th>Post</th>
+        <th>Score</th>
+        <th>Vote</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${page.getContent()}">
+        <td th:text="${post.id} +'.'"></td>
+        <td><a th:href="@{'/posts/{id}' (id=${post.id})}" th:text="${post.content}"></a></td>
+        <td th:text="${post.score}"></td>
+        <td><a th:href="@{'posts/{id}/upvote' (id=${post.id})}">+</a>
+            <a th:href="@{'posts/{id}/downvote' (id=${post.id})}">-</a></td>
+        <td th:text="${#dates.format(post.created,'YYYY/MM/dd HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+
 <!-- Pagination Bar -->
-<!--<div th:fragment='paginationbar'>
+<div th:fragment='paginationbar'>
     <div class='pagination pagination-centered'>
         <ul th:object="${page}">
-            <li th:class="*{page.isFirstPage}? ' disabled ' : ''">
+            <li th:class="${page.isFirstPage()}? ' disabled ' : ''">
                 <span th:if='${page.firstPage}'>← First</span>
-                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page.page=1,page.size=${page.size})}'>←
+                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=1,size=${page.size})}'>←
                     First</a>
+            </li>
             <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                <span th:if='${not page.hasPreviousPage}'>«</span>
+                <a th:if='${page.hasPreviousPage}'
+                   th:href='@{${page.url}(page=${page.number-1},size=${page.size})}'
+                   title='Go to previous page'>«</a>
             </li>
-            <span th:if='${not page.hasPreviousPage}'>«</span>
-            <a th:if='${page.hasPreviousPage}'
-               th:href='@{${page.url}(page.page=${page.number-1},page.size=${page.size})}'
-               title='Go to previous page'>«</a>
-            </li>
-            <li th:each="item : ${page.items}' th:class='${item.current}? ' active' : ''">
+            <li th:each="item : ${page.items}" th:class="${item.current}? ' active' : ''">
                 <span th:if='${item.current}' th:text='${item.number}'>1</span>
                 <a th:if='${not item.current}'
-                   th:href='@{${page.url}(page.page=${item.number},page.size=${page.size})}'><span
+                   th:href='@{${page.url}(page=${item.number},size=${page.size})}'><span
                         th:text='${item.number}'>1</span></a>
             </li>
             <li th:class="${page.hasNextPage}? '' : 'disabled'">
                 <span th:if='${not page.hasNextPage}'>»</span>
                 <a th:if='${page.hasNextPage}'
-                   th:href='@{${page.url}(page.page=${page.number+1},page.size=${page.size})}'
+                   th:href='@{${page.url}(page=${page.number+1},size=${page.size})}'
                    title='Go to next page'>»</a>
             </li>
             <li th:class="${page.lastPage}? ' disabled' : ''">
                 <span th:if='${page.lastPage}'>Last →</span>
                 <a th:if='${not page.lastPage}'
-                   th:href='@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}'>Last →</a>
+                   th:href='@{${page.url}(page=${page.totalPages},size=${page.size})}'>Last →</a>
             </li>
         </ul>
     </div>
-</div>-->
-<!--<link rel="posts.prev">
-&lt;&lt;</link>
-<link rel="posts.next">
->&gt;</link>
-<br/>-->
+</div>
 <a href="/posts/add">Add a new post</a>
 <br/>
 <a style="font-size: 52px" href="/posts/deletthis">BALEET</a>

@@ -15,6 +15,4 @@ import org.springframework.stereotype.Component;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByOrderByScoreDesc(Pageable pageable);
-
-//    Page<Post> findAll(Pageable pageable);
 }

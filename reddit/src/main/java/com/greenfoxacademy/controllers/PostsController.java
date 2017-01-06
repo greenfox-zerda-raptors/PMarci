@@ -35,13 +35,11 @@ public class PostsController {
 
     @RequestMapping(method = RequestMethod.GET)
     String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 5, page = 0) Pageable pageable) {
-//        Page<Post> temp = postRepository.findAllByOrderByScoreDesc(new PageRequest(pageNr, 5));
-//        model.addAttribute("posts", temp);
         PageWrapper<Post> page = new PageWrapper<Post>(postRepository.findAllByOrderByScoreDesc(pageable), "posts");
         model.addAttribute("page", page);
 
         this.current = page.getNumber();
-        return "posts2";
+        return "posts";
     }
 
     @GetMapping("/add")
@@ -82,14 +80,14 @@ public class PostsController {
         return "redirect:/posts";
     }
 
-//
-//    @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)
-//    String showPost(Model model, @PathVariable("postID") Long postID) {
-//    return null;
-//    }
 
-//    @RequestMapping("/1")
-//    String firstPost(Model model) {
-//        return "1";
-//    }
+    @RequestMapping(value = " /posts/{postID}", method = RequestMethod.GET)
+    String showPost(Model model, @PathVariable("postID") Long postID) {
+    return null;
+    }
+
+    @RequestMapping("/1")
+    String firstPost(Model model) {
+        return "1";
+    }
 }
