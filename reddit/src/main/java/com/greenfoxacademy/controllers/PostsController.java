@@ -43,7 +43,6 @@ public class PostsController {
         model.addAttribute("page", page);
 
         this.current = page.getNumber();
-//        model.addAttribute("posts", postRepository.findAllByOrderByScoreDesc());
         return "posts2";
     }
 
