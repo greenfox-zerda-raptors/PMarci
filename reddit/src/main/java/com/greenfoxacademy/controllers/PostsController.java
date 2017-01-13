@@ -25,8 +25,6 @@ import javax.validation.Valid;
 @RequestMapping("/posts")
 public class PostsController {
 
-    int current;
-
     @Autowired
     PostServices postServices;
 
@@ -34,11 +32,11 @@ public class PostsController {
     PostRepository postRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    String listPosts(Model model, @RequestParam(value = "page", defaultValue = "0") int pageNr, @PageableDefault(size = 5, page = 0) Pageable pageable) {
+    String listPosts(Model model,/* @RequestParam(value = "page", defaultValue = "0") int pageNr,*/ @PageableDefault(size = 5, page = 0) Pageable pageable) {
         PageWrapper<Post> page = new PageWrapper<Post>(postRepository.findAllByOrderByScoreDesc(pageable), "posts");
         model.addAttribute("page", page);
 
-        this.current = page.getNumber();
+        int current = page.getNumber();
         return "posts";
     }
 

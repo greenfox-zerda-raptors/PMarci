@@ -73,3 +73,7 @@ th.rightcolumn, td.rightcolumn {
 #sendbtn:active {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3) 20%, rgba(0, 0, 0, 0));
 }
+
+.has-error {
+    color: #b94a48;
+}

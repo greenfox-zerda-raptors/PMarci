@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8"/>
     <title>RedditApp: Posts</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="custom.css"/>
+    <link rel="stylesheet" type="text/css" href="../bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../custom.css"/>
 </head>
 <body>
 <p id="title">NOT REDDIT&copy;</p>
@@ -19,7 +19,9 @@
     </tr>
     </thead>
     <tbody>
+    <!--/*@thymesVar id="page" type="org.springframework.data.domain.Page"*/-->
     <tr th:each="post : ${page.getContent()}">
+        <!--/*@thymesVar id="post" type="com.greenfoxacademy.models.Post"*/-->
         <td class="thincolumn" th:text="${post.id} +'.'"></td>
         <td><a th:href="@{'/posts/{id}' (id=${post.id})}" th:text="${post.content}"></a></td>
         <td class="rightcolumn thincolumn" th:text="${post.score}"></td>
@@ -33,6 +35,7 @@
 <!-- Pagination Bar -->
 <div th:fragment='paginationbar'>
     <div class='pagination pagination-centered'>
+        <!--/*@thymesVar id="page" type="org.springframework.data.domain.Page"*/-->
         <ul th:object="${page}">
             <li th:class="${page.isFirstPage()}? ' disabled ' : ''">
                 <span th:if='${page.firstPage}'>← First</span>
@@ -66,7 +69,7 @@
     </div>
 </div>
 <div class="btncontainer">
-    <a href="/posts/add">
+    <a href="/posts/add" style="text-decoration: none">
         <input id="sendbtn" value="Add a new post" type="button"/>
     </a>
 </div>

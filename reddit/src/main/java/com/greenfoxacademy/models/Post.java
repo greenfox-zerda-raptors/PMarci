@@ -2,10 +2,10 @@ package com.greenfoxacademy.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Calendar;
 
 /**
@@ -24,16 +24,30 @@ public class Post {
     public long id;
 
     @NotNull
-    @Size(min = 1, message = "Post body can''t be empty!")
+    @NotEmpty(message = "Post body can''t be empty!")
     public String content;
     public int score;
 
     @Temporal(TemporalType.TIMESTAMP)
     public Calendar created;
 
+    @Column
+    public long replyTo;
+
+    @Column
+    public long threadNr;
+
+
     public Post() {
         this.created = Calendar.getInstance();
     }
+
+    public Post(long threadNr, long replyTo) {
+        this();
+        this.threadNr = threadNr;
+        this.replyTo = replyTo;
+    }
+
 
     public Post increment() {
         this.score++;
